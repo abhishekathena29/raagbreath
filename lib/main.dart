@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raag_breath/features/home/home.dart';
+import 'package:raag_breath/features/auth/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
             .textTheme
             .apply(bodyColor: Colors.white, displayColor: Colors.white),
       ),
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }
