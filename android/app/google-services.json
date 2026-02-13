@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750935796554",
+    "project_id": "raagbreath",
+    "storage_bucket": "raagbreath.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750935796554:android:28ba87dc767b2154c76fb3",
+        "android_client_info": {
+          "package_name": "com.raagbreath.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC41UPpyI8dYnBWO0N1aDkhr33Is1sLYqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

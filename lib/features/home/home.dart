@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:raag_breath/core/data/practice_data.dart';
+import 'package:raag_breath/features/meditation/practice_detail.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
 
   final List<_SessionCardData> _featuredSessions = const [
     _SessionCardData(
@@ -36,12 +31,14 @@ class _HomePageState extends State<HomePage> {
 
   final List<_QuickStartData> _quickStarts = const [
     _QuickStartData(
+      id: 'nadi_shodhana',
       title: 'Deep Rest',
       imageUrl:
           'https://images.unsplash.com/photo-1526401485004-2aa7c769f5c1?auto=format&fit=crop&w=900&q=80',
       accent: Color(0xFFB078FF),
     ),
     _QuickStartData(
+      id: 'raag_bhairav',
       title: 'Morning Glow',
       imageUrl:
           'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80',
@@ -61,31 +58,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
-      body: Stack(
-        children: [
-          _BackgroundLayer(),
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(),
-                  const SizedBox(height: 20),
-                  _buildFeatured(),
-                  const SizedBox(height: 22),
-                  _buildCategories(),
-                  const SizedBox(height: 24),
-                  _buildQuickStart(),
-                ],
-              ),
+    return Stack(
+      children: [
+        _BackgroundLayer(),
+        SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(),
+                const SizedBox(height: 20),
+                _buildFeatured(),
+                const SizedBox(height: 22),
+                _buildCategories(),
+                const SizedBox(height: 24),
+                _buildQuickStart(),
+              ],
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: _buildBottomNav(),
+        ),
+      ],
     );
   }
 
@@ -148,7 +141,23 @@ class _HomePageState extends State<HomePage> {
         separatorBuilder: (_, __) => const SizedBox(width: 18),
         itemBuilder: (context, index) {
           final session = _featuredSessions[index];
-          return _FeaturedCard(session: session);
+          return GestureDetector(
+            onTap: () {
+              // Map featured to actual data if possible, else just show a default detail
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PracticeDetailScreen(
+                    item: PracticeData.pranayama.firstWhere(
+                      (p) => p.title.contains(session.title.split(' ').first),
+                      orElse: () => PracticeData.pranayama.first,
+                    ),
+                  ),
+                ),
+              );
+            },
+            child: _FeaturedCard(session: session),
+          );
         },
       ),
     );
@@ -160,27 +169,40 @@ class _HomePageState extends State<HomePage> {
       runSpacing: 12,
       children: _categories
           .map(
-            (category) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A143C),
-                borderRadius: BorderRadius.circular(22),
-                border: Border.all(color: const Color(0xFF2D2553)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(category.icon, size: 18, color: const Color(0xFF72E8D4)),
-                  const SizedBox(width: 8),
-                  Text(
-                    category.label,
-                    style: const TextStyle(
-                      color: Color(0xFFC4BDD7),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
+            (category) => GestureDetector(
+              onTap: () {
+                // Navigate to Meditation (1) or Music (2) tab based on category
+                // This would normally use a TabController or Provider
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1A143C),
+                  borderRadius: BorderRadius.circular(22),
+                  border: Border.all(color: const Color(0xFF2D2553)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      category.icon,
+                      size: 18,
+                      color: const Color(0xFF72E8D4),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 8),
+                    Text(
+                      category.label,
+                      style: const TextStyle(
+                        color: Color(0xFFC4BDD7),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           )
@@ -222,49 +244,25 @@ class _HomePageState extends State<HomePage> {
             separatorBuilder: (_, __) => const SizedBox(width: 16),
             itemBuilder: (context, index) {
               final quick = _quickStarts[index];
-              return _QuickStartCard(data: quick);
+              return GestureDetector(
+                onTap: () {
+                  final item = [
+                    ...PracticeData.pranayama,
+                    ...PracticeData.raagPractice,
+                  ].firstWhere((p) => p.id == quick.id);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PracticeDetailScreen(item: item),
+                    ),
+                  );
+                },
+                child: _QuickStartCard(data: quick),
+              );
             },
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(22),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) => setState(() => _currentIndex = index),
-          backgroundColor: const Color(0xFF17123A),
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: const Color(0xFF72E8D4),
-          unselectedItemColor: const Color(0xFF726A92),
-          showUnselectedLabels: true,
-          selectedFontSize: 12,
-          unselectedFontSize: 12,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.self_improvement),
-              label: 'Meditation',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.music_note),
-              label: 'Music',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: 'Profile',
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -496,11 +494,13 @@ class _SessionCardData {
 
 class _QuickStartData {
   const _QuickStartData({
+    required this.id,
     required this.title,
     required this.imageUrl,
     required this.accent,
   });
 
+  final String id;
   final String title;
   final String imageUrl;
   final Color accent;

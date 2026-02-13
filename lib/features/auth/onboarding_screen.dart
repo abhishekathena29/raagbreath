@@ -3,51 +3,51 @@ import 'package:provider/provider.dart';
 import 'package:raag_breath/features/auth/models/user_model.dart';
 import 'package:raag_breath/features/auth/services/auth_service.dart';
 import 'package:raag_breath/features/auth/services/firestore_service.dart';
-import 'onboarding_screen.dart';
+import '../navigation/main_shell.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _SignupPageState extends State<SignupPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _nameController = TextEditingController();
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final _ageController = TextEditingController();
+  final _heightController = TextEditingController();
+  Gender _gender = Gender.male;
+  ActivityLevel _activity = ActivityLevel.moderate;
   bool _isLoading = false;
 
-  Future<void> _handleSignup() async {
+  Future<void> _saveBio() async {
+    final age = int.tryParse(_ageController.text);
+    final height = double.tryParse(_heightController.text);
+
+    if (age == null || height == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter valid age and height')),
+      );
+      return;
+    }
+
     setState(() => _isLoading = true);
 
     try {
-      final authService = Provider.of<AuthService>(context, listen: false);
-      final firestoreService = FirestoreService();
-
-      // 1. Create Auth User
-      final user = await authService.signUp(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
-      );
-
+      final user = Provider.of<AuthService>(context, listen: false).user;
       if (user != null) {
-        // 2. Create Firestore User with defaults
-        final userModel = UserModel(
-          uid: user.uid,
-          email: user.email!,
-          name: _nameController.text.trim(),
-          age: 0, // Placeholder
-          heightCm: 0, // Placeholder
-          gender: Gender.male, // Placeholder
-          activityLevel: ActivityLevel.moderate, // Placeholder
+        // Update user bio in Firestore
+        await FirestoreService().updateUserBio(
+          user.uid,
+          age: age,
+          heightCm: height,
+          gender: _gender,
+          activityLevel: _activity,
         );
 
-        await firestoreService.createUser(userModel);
-
         if (mounted) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (_) => const MainShell()),
+            (route) => false,
           );
         }
       }
@@ -55,7 +55,7 @@ class _SignupPageState extends State<SignupPage> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Signup Failed: $e')));
+        ).showSnackBar(SnackBar(content: Text('Error saving bio: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -75,13 +75,9 @@ class _SignupPageState extends State<SignupPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 20),
                   const Text(
-                    'Create account',
+                    'Tell us about you',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
@@ -90,31 +86,59 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   const SizedBox(height: 6),
                   const Text(
-                    'Join us with your email',
+                    'We use this to estimate your lung capacity',
                     style: TextStyle(color: Color(0xFFB7B0D7), fontSize: 15),
                   ),
-                  const SizedBox(height: 28),
-                  _InputField(
-                    label: 'Full Name',
-                    icon: Icons.person_outline,
-                    controller: _nameController,
-                    obscure: false,
+                  const SizedBox(height: 32),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _InputField(
+                          label: 'Age',
+                          icon: Icons.cake_outlined,
+                          controller: _ageController,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: _InputField(
+                          label: 'Height (cm)',
+                          icon: Icons.height,
+                          controller: _heightController,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  _InputField(
-                    label: 'Email',
-                    icon: Icons.mail_outline,
-                    controller: _emailController,
-                    obscure: false,
+                  const SizedBox(height: 24),
+
+                  const Text(
+                    "Gender",
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
-                  const SizedBox(height: 16),
-                  _InputField(
-                    label: 'Password',
-                    icon: Icons.lock_outline,
-                    controller: _passwordController,
-                    obscure: true,
+                  const SizedBox(height: 8),
+                  _buildDropdown<Gender>(
+                    value: _gender,
+                    items: Gender.values,
+                    onChanged: (v) => setState(() => _gender = v!),
                   ),
-                  const SizedBox(height: 22),
+
+                  const SizedBox(height: 24),
+                  const Text(
+                    "Activity Level",
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildDropdown<ActivityLevel>(
+                    value: _activity,
+                    items: ActivityLevel.values,
+                    onChanged: (v) => setState(() => _activity = v!),
+                  ),
+
+                  const SizedBox(height: 48),
+
                   if (_isLoading)
                     const Center(child: CircularProgressIndicator())
                   else
@@ -128,11 +152,10 @@ class _SignupPageState extends State<SignupPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          elevation: 4,
                         ),
-                        onPressed: _handleSignup,
+                        onPressed: _saveBio,
                         child: const Text(
-                          'Sign up',
+                          'Continue to App',
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16,
@@ -140,31 +163,42 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                     ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Already have an account?',
-                        style: TextStyle(color: Color(0xFFB7B0D7)),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Color(0xFF72E8D4),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildDropdown<T>({
+    required T value,
+    required List<T> items,
+    required ValueChanged<T?> onChanged,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF17123A),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFF2D2553)),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<T>(
+          value: value,
+          isExpanded: true,
+          dropdownColor: const Color(0xFF1A143C),
+          icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF72E8D4)),
+          style: const TextStyle(color: Colors.white),
+          items: items.map((item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(item.toString().split('.').last.toUpperCase()),
+            );
+          }).toList(),
+          onChanged: onChanged,
+        ),
       ),
     );
   }
@@ -175,19 +209,19 @@ class _InputField extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.controller,
-    required this.obscure,
+    this.keyboardType,
   });
 
   final String label;
   final IconData icon;
   final TextEditingController controller;
-  final bool obscure;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      obscureText: obscure,
+      keyboardType: keyboardType,
       cursorColor: const Color(0xFF72E8D4),
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
