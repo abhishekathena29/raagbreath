@@ -16,6 +16,7 @@ class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
+  UserType _selectedUserType = UserType.student;
   bool _isLoading = false;
 
   Future<void> _handleSignup() async {
@@ -39,8 +40,10 @@ class _SignupPageState extends State<SignupPage> {
           name: _nameController.text.trim(),
           age: 0, // Placeholder
           heightCm: 0, // Placeholder
+          weightKg: 0, // Placeholder
           gender: Gender.male, // Placeholder
           activityLevel: ActivityLevel.moderate, // Placeholder
+          userType: _selectedUserType,
         );
 
         await firestoreService.createUser(userModel);
@@ -113,6 +116,50 @@ class _SignupPageState extends State<SignupPage> {
                     icon: Icons.lock_outline,
                     controller: _passwordController,
                     obscure: true,
+                  ),
+                  const SizedBox(height: 16),
+                  DropdownButtonFormField<UserType>(
+                    value: _selectedUserType,
+                    decoration: InputDecoration(
+                      labelText: 'Role',
+                      prefixIcon: const Icon(
+                        Icons.badge_outlined,
+                        color: Color(0xFF72E8D4),
+                      ),
+                      filled: true,
+                      fillColor: const Color(0xFF17123A),
+                      labelStyle: const TextStyle(color: Color(0xFFB7B0D7)),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(color: Color(0xFF2D2553)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(color: Color(0xFF72E8D4)),
+                      ),
+                    ),
+                    dropdownColor: const Color(0xFF1A143C),
+                    style: const TextStyle(color: Colors.white),
+                    items: UserType.values.map((type) {
+                      String label = type.name;
+                      if (type == UserType.schoolAdmin)
+                        label = 'School Administrator';
+                      if (type == UserType.ngo) label = 'NGO';
+                      return DropdownMenuItem(
+                        value: type,
+                        child: Text(
+                          label.substring(0, 1).toUpperCase() +
+                              label.substring(1),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (UserType? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          _selectedUserType = newValue;
+                        });
+                      }
+                    },
                   ),
                   const SizedBox(height: 22),
                   if (_isLoading)

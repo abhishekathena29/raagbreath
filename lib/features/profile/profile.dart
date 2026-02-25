@@ -7,6 +7,7 @@ import 'package:raag_breath/features/auth/services/auth_service.dart';
 import 'package:raag_breath/features/auth/services/firestore_service.dart';
 import 'package:raag_breath/features/meditation/models/practice_session.dart';
 import '../meditation/lung_capacity_test_screen.dart';
+import 'package:raag_breath/core/theme/theme_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -85,12 +86,14 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: const Color(0xFF1C1540),
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: const Color(0xFF2D2553)),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.35),
+              color: Colors.black.withOpacity(0.1),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -102,10 +105,10 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Lung Capacity',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                   ),
@@ -370,10 +373,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Profile',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 26,
                             fontWeight: FontWeight.w700,
                           ),
@@ -381,9 +384,28 @@ class _ProfilePageState extends State<ProfilePage> {
                         Row(
                           children: [
                             IconButton(
-                              icon: const Icon(
+                              icon: Icon(
+                                Provider.of<ThemeProvider>(context).isDarkMode
+                                    ? Icons.light_mode
+                                    : Icons.dark_mode,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.7),
+                              ),
+                              onPressed: () {
+                                final provider = Provider.of<ThemeProvider>(
+                                  context,
+                                  listen: false,
+                                );
+                                provider.toggleTheme(!provider.isDarkMode);
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
                                 Icons.edit,
-                                color: Colors.white70,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.7),
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -395,9 +417,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               },
                             ),
                             IconButton(
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.logout,
-                                color: Colors.white70,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.7),
                               ),
                               onPressed: () => authService.signOut(),
                             ),
@@ -408,15 +432,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(height: 8),
                     Text(
                       'Hello, ${userModel.name}',
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Keep breathing, keep growing.',
-                      style: TextStyle(color: Color(0xFFB7B0D7), fontSize: 15),
+                      style: TextStyle(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.6),
+                        fontSize: 15,
+                      ),
                     ),
                     const SizedBox(height: 20),
                     _buildLungCapacityDashboard(
@@ -460,8 +489,8 @@ class _Section extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
             fontSize: 18,
             fontWeight: FontWeight.w700,
           ),
@@ -484,9 +513,11 @@ class _PracticeCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A143C),
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFF2D2553)),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+        ),
       ),
       child: Row(
         children: [
@@ -505,8 +536,8 @@ class _PracticeCard extends StatelessWidget {
               children: [
                 Text(
                   item.title,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),
@@ -514,8 +545,10 @@ class _PracticeCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   item.subtitle,
-                  style: const TextStyle(
-                    color: Color(0xFFB7B0D7),
+                  style: TextStyle(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.6),
                     fontSize: 13,
                   ),
                 ),
@@ -557,11 +590,14 @@ class _SectionBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF3B1F5D), Color(0xFF0D082B)],
+          colors: [
+            Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+            Theme.of(context).scaffoldBackgroundColor,
+          ],
         ),
       ),
       child: Stack(

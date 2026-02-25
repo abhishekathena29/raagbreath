@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/models/practice_item.dart';
 import 'breathing_simulation.dart';
+import 'breathing_session_screen.dart';
 
 class PracticeDetailScreen extends StatelessWidget {
   final PracticeItem item;
@@ -207,7 +208,36 @@ class PracticeDetailScreen extends StatelessWidget {
                             shadowColor: item.accent.withOpacity(0.4),
                           ),
                           onPressed: () {
-                            // TODO: Implement music practice session
+                            // Launch Breathing Session for known IDs
+                            if ([
+                              'nadi_shodhana',
+                              'bhramari',
+                              'ujjayi',
+                              'kapalabhati',
+                            ].contains(item.id)) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BreathingSessionScreen(
+                                    title: item.title,
+                                    techniqueId: item.id,
+                                    accent: item.accent,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              // Start Simulation for others or Fallback
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      BreathingSimulationScreen(
+                                        title: item.title,
+                                        accent: item.accent,
+                                      ),
+                                ),
+                              );
+                            }
                           },
                           child: const Text(
                             'Start Practice',

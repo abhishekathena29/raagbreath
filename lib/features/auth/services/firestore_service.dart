@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user_model.dart';
 import '../../meditation/models/practice_session.dart';
 
@@ -6,10 +7,12 @@ class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future<void> createUser(UserModel user) async {
+    if (FirebaseAuth.instance.currentUser?.isAnonymous ?? false) return;
     await _db.collection('users').doc(user.uid).set(user.toMap());
   }
 
   Future<void> savePracticeSession(PracticeSession session) async {
+    if (FirebaseAuth.instance.currentUser?.isAnonymous ?? false) return;
     // 1. Save Session
     await _db.collection('practice_sessions').add(session.toMap());
 
@@ -89,12 +92,16 @@ class FirestoreService {
     String uid, {
     int? age,
     double? heightCm,
+    double? weightKg,
     Gender? gender,
     ActivityLevel? activityLevel,
   }) async {
+    if (FirebaseAuth.instance.currentUser?.isAnonymous ?? false) return;
+
     final Map<String, dynamic> data = {};
     if (age != null) data['age'] = age;
     if (heightCm != null) data['heightCm'] = heightCm;
+    if (weightKg != null) data['weightKg'] = weightKg;
     if (gender != null) data['gender'] = gender.index;
     if (activityLevel != null) data['activityLevel'] = activityLevel.index;
 

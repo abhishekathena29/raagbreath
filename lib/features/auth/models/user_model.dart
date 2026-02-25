@@ -2,14 +2,18 @@ enum Gender { male, female, other }
 
 enum ActivityLevel { sedentary, moderate, active, athlete }
 
+enum UserType { student, teacher, schoolAdmin, parent, ngo }
+
 class UserModel {
   final String uid;
   final String email;
   final String name;
   final int age;
   final double heightCm;
+  final double weightKg;
   final Gender gender;
   final ActivityLevel activityLevel;
+  final UserType userType;
 
   // Stats
   final int totalPracticeMinutes;
@@ -26,8 +30,10 @@ class UserModel {
     required this.name,
     required this.age,
     required this.heightCm,
+    required this.weightKg,
     required this.gender,
     required this.activityLevel,
+    this.userType = UserType.student,
     this.totalPracticeMinutes = 0,
     this.currentStreak = 0,
     this.longestStreak = 0,
@@ -42,8 +48,10 @@ class UserModel {
       'name': name,
       'age': age,
       'heightCm': heightCm,
+      'weightKg': weightKg,
       'gender': gender.index,
       'activityLevel': activityLevel.index,
+      'userType': userType.index,
       'totalPracticeMinutes': totalPracticeMinutes,
       'currentStreak': currentStreak,
       'longestStreak': longestStreak,
@@ -59,8 +67,10 @@ class UserModel {
       name: map['name'] ?? '',
       age: map['age']?.toInt() ?? 0,
       heightCm: map['heightCm']?.toDouble() ?? 0.0,
+      weightKg: map['weightKg']?.toDouble() ?? 0.0,
       gender: Gender.values[map['gender'] ?? 0],
       activityLevel: ActivityLevel.values[map['activityLevel'] ?? 0],
+      userType: UserType.values[map['userType'] ?? 0],
       totalPracticeMinutes: map['totalPracticeMinutes']?.toInt() ?? 0,
       currentStreak: map['currentStreak']?.toInt() ?? 0,
       longestStreak: map['longestStreak']?.toInt() ?? 0,

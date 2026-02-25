@@ -32,12 +32,16 @@ class AppBottomNav extends StatelessWidget {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.self_improvement),
-              label: 'Meditation',
+              icon: Icon(Icons.auto_stories),
+              label: 'Learn',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.music_note),
-              label: 'Music',
+              icon: Icon(Icons.medical_information),
+              label: 'Diagnose',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.healing),
+              label: 'Treatment',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),

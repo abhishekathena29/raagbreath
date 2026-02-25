@@ -1,79 +1,101 @@
 import 'package:flutter/material.dart';
-import 'package:raag_breath/core/data/practice_data.dart';
-import 'package:raag_breath/features/meditation/practice_detail.dart';
+import 'package:raag_breath/features/learn/learn_screen.dart';
+import 'package:raag_breath/features/diagnose/diagnose_screen.dart';
+import 'package:raag_breath/features/treatment/treatment_screen.dart';
+import 'package:raag_breath/features/meditation/meditation.dart';
+import 'package:raag_breath/features/music/music.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  final List<_SessionCardData> _featuredSessions = const [
-    _SessionCardData(
-      title: 'Anger Release',
-      tag: 'Anger Release',
-      imageUrl:
-          'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80',
-      accent: Color(0xFF72E8D4),
-    ),
-    _SessionCardData(
-      title: 'Stress Relief',
-      tag: 'Doze Off',
-      imageUrl:
-          'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
-      accent: Color(0xFF5AD8FE),
-    ),
-    _SessionCardData(
-      title: 'Calm Focus',
-      tag: 'Calm Focus',
-      imageUrl:
-          'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80',
-      accent: Color(0xFFB0A3FF),
-    ),
-  ];
-
-  final List<_QuickStartData> _quickStarts = const [
-    _QuickStartData(
-      id: 'nadi_shodhana',
-      title: 'Deep Rest',
-      imageUrl:
-          'https://images.unsplash.com/photo-1526401485004-2aa7c769f5c1?auto=format&fit=crop&w=900&q=80',
-      accent: Color(0xFFB078FF),
-    ),
-    _QuickStartData(
-      id: 'raag_bhairav',
-      title: 'Morning Glow',
-      imageUrl:
-          'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80',
-      accent: Color(0xFF72E8D4),
-    ),
-  ];
-
-  final List<_Category> _categories = const [
-    _Category('Meditation', Icons.self_improvement),
-    _Category('Relief', Icons.spa),
-    _Category('Prayer', Icons.front_hand),
-    _Category('Mantras', Icons.auto_awesome),
-    _Category('Yoga', Icons.emoji_people),
-    _Category('Soundscapes', Icons.music_note),
-    _Category('Breath', Icons.air),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        _BackgroundLayer(),
+        const _BackgroundLayer(),
         SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(),
-                const SizedBox(height: 20),
-                _buildFeatured(),
-                const SizedBox(height: 22),
-                _buildCategories(),
+                _buildHeader(context),
+                const SizedBox(height: 32),
+                Text(
+                  'Your Lung Health Hub',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 24),
-                _buildQuickStart(),
+                _MainSectionCard(
+                  title: 'Learn',
+                  subtitle: 'Build awareness and know your lungs',
+                  icon: Icons.auto_stories,
+                  accentColor: const Color(0xFF72E8D4),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LearnScreen()),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                _MainSectionCard(
+                  title: 'Diagnose',
+                  subtitle: 'Check symptoms and assess your risks',
+                  icon: Icons.health_and_safety,
+                  accentColor: const Color(0xFF5AD8FE),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const DiagnoseScreen()),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                _MainSectionCard(
+                  title: 'Treatment',
+                  subtitle: 'Take action, exercise and find doctors',
+                  icon: Icons.healing,
+                  accentColor: const Color(0xFFB0A3FF),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const TreatmentScreen(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                _MainSectionCard(
+                  title: 'Meditation & Breathing',
+                  subtitle: 'Practice exercises to strengthen your lungs',
+                  icon: Icons.self_improvement,
+                  accentColor: const Color(0xFF00B4D8),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MeditationPage()),
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                _MainSectionCard(
+                  title: 'Music Therapy',
+                  subtitle: 'Listen to ragas that enhance breathing',
+                  icon: Icons.music_note,
+                  accentColor: const Color(0xFF9D4EDD),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MusicPage()),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -82,26 +104,26 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
-              'Good Evening✌️',
+              'Hello! 👋',
               style: TextStyle(
-                color: Color(0xFFB7B0D7),
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 fontSize: 15,
                 height: 1.2,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
-              'Lilly Wilson',
+              'Welcome Back',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 26,
                 fontWeight: FontWeight.w700,
                 height: 1.2,
@@ -112,341 +134,121 @@ class HomePage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: const Color(0xFF1C1540),
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.25),
+                color: Colors.black.withOpacity(0.1),
                 blurRadius: 12,
                 offset: const Offset(0, 6),
               ),
             ],
           ),
-          child: const Icon(
-            Icons.nightlight_round,
-            color: Color(0xFF72E8D4),
+          child: Icon(
+            Icons.spa,
+            color: Theme.of(context).colorScheme.primary,
             size: 26,
           ),
         ),
       ],
     );
   }
+}
 
-  Widget _buildFeatured() {
-    return SizedBox(
-      height: 240,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: _featuredSessions.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 18),
-        itemBuilder: (context, index) {
-          final session = _featuredSessions[index];
-          return GestureDetector(
-            onTap: () {
-              // Map featured to actual data if possible, else just show a default detail
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PracticeDetailScreen(
-                    item: PracticeData.pranayama.firstWhere(
-                      (p) => p.title.contains(session.title.split(' ').first),
-                      orElse: () => PracticeData.pranayama.first,
-                    ),
-                  ),
-                ),
-              );
-            },
-            child: _FeaturedCard(session: session),
-          );
-        },
-      ),
-    );
-  }
+class _MainSectionCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color accentColor;
+  final VoidCallback onTap;
 
-  Widget _buildCategories() {
-    return Wrap(
-      spacing: 12,
-      runSpacing: 12,
-      children: _categories
-          .map(
-            (category) => GestureDetector(
-              onTap: () {
-                // Navigate to Meditation (1) or Music (2) tab based on category
-                // This would normally use a TabController or Provider
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1A143C),
-                  borderRadius: BorderRadius.circular(22),
-                  border: Border.all(color: const Color(0xFF2D2553)),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      category.icon,
-                      size: 18,
-                      color: const Color(0xFF72E8D4),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      category.label,
-                      style: const TextStyle(
-                        color: Color(0xFFC4BDD7),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
+  const _MainSectionCard({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.accentColor,
+    required this.onTap,
+  });
 
-  Widget _buildQuickStart() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text(
-              'Quick Start',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text(
-              'See All',
-              style: TextStyle(
-                color: Color(0xFF72E8D4),
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
-        const SizedBox(height: 16),
-        SizedBox(
-          height: 170,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: _quickStarts.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 16),
-            itemBuilder: (context, index) {
-              final quick = _quickStarts[index];
-              return GestureDetector(
-                onTap: () {
-                  final item = [
-                    ...PracticeData.pranayama,
-                    ...PracticeData.raagPractice,
-                  ].firstWhere((p) => p.id == quick.id);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PracticeDetailScreen(item: item),
-                    ),
-                  );
-                },
-                child: _QuickStartCard(data: quick),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _FeaturedCard extends StatelessWidget {
-  const _FeaturedCard({required this.session});
-
-  final _SessionCardData session;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 190,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(22),
-        image: DecorationImage(
-          image: NetworkImage(session.imageUrl),
-          fit: BoxFit.cover,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.4),
-            blurRadius: 16,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black.withOpacity(0.25),
-                  Colors.black.withOpacity(0.55),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            top: 14,
-            left: 14,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.82),
-                borderRadius: BorderRadius.circular(14),
+                color: accentColor.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(20),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+              child: Icon(icon, color: accentColor, size: 32),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
-                    Icons.self_improvement,
-                    size: 16,
-                    color: Color(0xFF5B4BA6),
-                  ),
-                  const SizedBox(width: 6),
                   Text(
-                    session.tag,
-                    style: const TextStyle(
-                      color: Color(0xFF3B305C),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
+                    title,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.6),
+                      fontSize: 14,
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          Positioned(
-            bottom: 16,
-            left: 16,
-            right: 16,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: session.accent,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                session.title,
-                style: const TextStyle(
-                  color: Color(0xFF1E2D38),
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _QuickStartCard extends StatelessWidget {
-  const _QuickStartCard({required this.data});
-
-  final _QuickStartData data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 280,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(22),
-        image: DecorationImage(
-          image: NetworkImage(data.imageUrl),
-          fit: BoxFit.cover,
+            Icon(Icons.chevron_right, color: accentColor, size: 28),
+          ],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.35),
-            blurRadius: 12,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black.withOpacity(0.15),
-                  Colors.black.withOpacity(0.6),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            top: 12,
-            right: 12,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                color: const Color(0xFF2B224C).withOpacity(0.9),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Text(
-                data.title,
-                style: TextStyle(
-                  color: data.accent,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 14,
-            left: 16,
-            right: 16,
-            child: Text(
-              data.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
 }
 
 class _BackgroundLayer extends StatelessWidget {
+  const _BackgroundLayer();
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF3B1F5D), Color(0xFF0D082B)],
+          colors: [
+            Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+            Theme.of(context).scaffoldBackgroundColor,
+          ],
         ),
       ),
       child: Stack(
@@ -476,39 +278,4 @@ class _BackgroundLayer extends StatelessWidget {
       ),
     );
   }
-}
-
-class _SessionCardData {
-  const _SessionCardData({
-    required this.title,
-    required this.tag,
-    required this.imageUrl,
-    required this.accent,
-  });
-
-  final String title;
-  final String tag;
-  final String imageUrl;
-  final Color accent;
-}
-
-class _QuickStartData {
-  const _QuickStartData({
-    required this.id,
-    required this.title,
-    required this.imageUrl,
-    required this.accent,
-  });
-
-  final String id;
-  final String title;
-  final String imageUrl;
-  final Color accent;
-}
-
-class _Category {
-  const _Category(this.label, this.icon);
-
-  final String label;
-  final IconData icon;
 }

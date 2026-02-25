@@ -39,7 +39,12 @@ dependencies:
   firebase_core: 
   firebase_auth: 
   cloud_firestore: 
-  provider: ^6.1.5+1 
+  provider:
+  fftea:
+  record: ^5.2.0
+  scidart: ^0.0.2-dev.12
+  path_provider: ^2.1.2
+  permission_handler: ^11.3.0
 
 dev_dependencies:
   flutter_test:

@@ -16,6 +16,28 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool _isLoading = false;
 
+  Future<void> _handleGuestLogin() async {
+    setState(() => _isLoading = true);
+    try {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      final user = await authService.signInAsGuest();
+
+      if (user != null && mounted) {
+        Navigator.of(
+          context,
+        ).pushReplacement(MaterialPageRoute(builder: (_) => const MainShell()));
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Guest Login Failed: $e')));
+      }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
   Future<void> _handleLogin() async {
     setState(() => _isLoading = true);
     try {
@@ -86,27 +108,56 @@ class _LoginPageState extends State<LoginPage> {
                   if (_isLoading)
                     const Center(child: CircularProgressIndicator())
                   else
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF72E8D4),
-                          foregroundColor: const Color(0xFF0D082B),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF72E8D4),
+                              foregroundColor: const Color(0xFF0D082B),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              elevation: 4,
+                            ),
+                            onPressed: _handleLogin,
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
-                          elevation: 4,
                         ),
-                        onPressed: _handleLogin,
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: double.infinity,
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: const Color(0xFF72E8D4),
+                              side: const BorderSide(
+                                color: Color(0xFF72E8D4),
+                                width: 1.5,
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            onPressed: _handleGuestLogin,
+                            child: const Text(
+                              'Skip Login (Guest)',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   const SizedBox(height: 16),
                   Row(

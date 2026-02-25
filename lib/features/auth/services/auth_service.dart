@@ -40,6 +40,16 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  Future<User?> signInAsGuest() async {
+    try {
+      final credential = await _auth.signInAnonymously();
+      return credential.user;
+    } catch (e) {
+      debugPrint('Guest SignIn Error: $e');
+      rethrow;
+    }
+  }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }

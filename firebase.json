@@ -1,1 +1,42 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"raagbreath","appId":"1:750935796554:android:28ba87dc767b2154c76fb3","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"raagbreath","appId":"1:750935796554:ios:fac780bba9f09b29c76fb3","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"raagbreath","configurations":{"android":"1:750935796554:android:28ba87dc767b2154c76fb3","ios":"1:750935796554:ios:fac780bba9f09b29c76fb3","web":"1:750935796554:web:1d647399a775a88ec76fb3"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "raagbreath",
+          "appId": "1:750935796554:android:28ba87dc767b2154c76fb3",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "raagbreath",
+          "appId": "1:750935796554:ios:fac780bba9f09b29c76fb3",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "raagbreath",
+          "configurations": {
+            "android": "1:750935796554:android:28ba87dc767b2154c76fb3",
+            "ios": "1:750935796554:ios:fac780bba9f09b29c76fb3",
+            "web": "1:750935796554:web:1d647399a775a88ec76fb3"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "asia-east1"
+    }
+  }
+}

@@ -15,6 +15,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final _ageController = TextEditingController();
   final _heightController = TextEditingController();
+  final _weightController = TextEditingController();
   Gender _gender = Gender.male;
   ActivityLevel _activity = ActivityLevel.moderate;
   bool _isLoading = false;
@@ -22,10 +23,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Future<void> _saveBio() async {
     final age = int.tryParse(_ageController.text);
     final height = double.tryParse(_heightController.text);
+    final weight = double.tryParse(_weightController.text);
 
-    if (age == null || height == null) {
+    if (age == null || height == null || weight == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter valid age and height')),
+        const SnackBar(
+          content: Text('Please enter valid age, height, and weight'),
+        ),
       );
       return;
     }
@@ -40,6 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           user.uid,
           age: age,
           heightCm: height,
+          weightKg: weight,
           gender: _gender,
           activityLevel: _activity,
         );
@@ -107,6 +112,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           label: 'Height (cm)',
                           icon: Icons.height,
                           controller: _heightController,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: _InputField(
+                          label: 'Weight (kg)',
+                          icon: Icons.monitor_weight_outlined,
+                          controller: _weightController,
                           keyboardType: TextInputType.number,
                         ),
                       ),
