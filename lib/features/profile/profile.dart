@@ -313,9 +313,14 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = authService.user;
 
     if (user == null) {
-      return Container(
-        color: const Color(0xFFFBF6EF),
-        child: const Center(
+      return Scaffold(
+        backgroundColor: const Color(0xFFFBF6EF),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
+        ),
+        body: const Center(
           child: Text(
             "Please login to view profile",
             style: TextStyle(
@@ -340,112 +345,151 @@ class _ProfilePageState extends State<ProfilePage> {
 
         final userModel = snapshot.data;
         if (userModel == null) {
-          return const Center(
-            child: Text(
-              "Loading Profile...",
-              style: TextStyle(color: Color(0xFF3D2B1F)),
+          return Scaffold(
+            backgroundColor: const Color(0xFFFBF6EF),
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
+            ),
+            body: const Center(
+              child: Text(
+                "Loading Profile...",
+                style: TextStyle(color: Color(0xFF3D2B1F)),
+              ),
             ),
           );
         }
 
-        return Stack(
-          children: [
-            const _SectionBackground(),
-            SafeArea(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Profile',
-                          style: TextStyle(
-                            color: Color(0xFF3D2B1F),
-                            fontSize: 26,
-                            fontWeight: FontWeight.w700,
+        return Scaffold(
+          backgroundColor: const Color(0xFFFBF6EF),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
+          ),
+          body: Stack(
+            children: [
+              const _SectionBackground(),
+              SafeArea(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Profile',
+                            style: TextStyle(
+                              color: Color(0xFF3D2B1F),
+                              fontSize: 26,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Provider.of<ThemeProvider>(context).isDarkMode
-                                    ? Icons.light_mode
-                                    : Icons.dark_mode,
-                                color: const Color(0xFF8C7B6B),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(
+                                  Provider.of<ThemeProvider>(context).isDarkMode
+                                      ? Icons.light_mode
+                                      : Icons.dark_mode,
+                                  color: const Color(0xFF8C7B6B),
+                                ),
+                                onPressed: () {
+                                  final provider = Provider.of<ThemeProvider>(
+                                    context,
+                                    listen: false,
+                                  );
+                                  provider.toggleTheme(!provider.isDarkMode);
+                                },
                               ),
-                              onPressed: () {
-                                final provider = Provider.of<ThemeProvider>(
-                                  context,
-                                  listen: false,
-                                );
-                                provider.toggleTheme(!provider.isDarkMode);
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.edit,
-                                color: Color(0xFF8C7B6B),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Color(0xFF8C7B6B),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const OnboardingScreen(),
+                                    ),
+                                  );
+                                },
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const OnboardingScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.logout,
-                                color: Color(0xFF8C7B6B),
-                              ),
-                              onPressed: () => authService.signOut(),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Hello, ${userModel.name}',
-                      style: const TextStyle(
-                        color: Color(0xFF3D2B1F),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    const Text(
-                      'Keep breathing, keep growing.',
-                      style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
-                    ),
-                    const SizedBox(height: 20),
-                    _buildLungCapacityDashboard(
-                      userModel,
-                      const Color(0xFFC17D3C),
-                    ),
-                    const SizedBox(height: 32),
-                    _Section(
-                      title: 'Today\'s Sadhana',
-                      items: ProfilePage._todayPlan,
-                    ),
-                    const SizedBox(height: 18),
-                    _Section(
-                      title: 'Saved Routines',
-                      items: ProfilePage._savedRoutines,
-                    ),
-                    const SizedBox(height: 32),
-                    _buildHistorySection(user.uid),
-                    const SizedBox(height: 32),
-                  ],
+                      const SizedBox(height: 4),
+                      Text(
+                        'Hello, ${userModel.name}',
+                        style: const TextStyle(
+                          color: Color(0xFF3D2B1F),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Text(
+                        'Keep breathing, keep growing.',
+                        style: TextStyle(
+                          color: Color(0xFF8C7B6B),
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      _buildLungCapacityDashboard(
+                        userModel,
+                        const Color(0xFFC17D3C),
+                      ),
+                      const SizedBox(height: 32),
+                      _Section(
+                        title: 'Today\'s Sadhana',
+                        items: ProfilePage._todayPlan,
+                      ),
+                      const SizedBox(height: 18),
+                      _Section(
+                        title: 'Saved Routines',
+                        items: ProfilePage._savedRoutines,
+                      ),
+                      const SizedBox(height: 32),
+                      _buildHistorySection(user.uid),
+                      const SizedBox(height: 32),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: const Color(0xFFD32F2F),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              side: BorderSide(
+                                color: const Color(0xFFD32F2F).withOpacity(0.3),
+                              ),
+                            ),
+                            elevation: 0,
+                          ),
+                          icon: const Icon(Icons.logout),
+                          label: const Text(
+                            'Sign Out',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () => authService.signOut(),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

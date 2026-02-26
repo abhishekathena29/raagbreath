@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:raag_breath/features/auth/login.dart';
+import 'package:raag_breath/features/auth/auth_gate.dart';
 import 'package:raag_breath/features/auth/services/auth_service.dart';
 import 'package:raag_breath/firebase_options.dart';
 import 'package:raag_breath/core/theme/theme_provider.dart';
@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginPage(),
+      home: const AuthGate(),
     );
   }
 }

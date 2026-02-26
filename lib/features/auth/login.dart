@@ -23,9 +23,7 @@ class _LoginPageState extends State<LoginPage> {
       final user = await authService.signInAsGuest();
 
       if (user != null && mounted) {
-        Navigator.of(
-          context,
-        ).pushReplacement(MaterialPageRoute(builder: (_) => const MainShell()));
+        // AuthGate handles navigation automatically
       }
     } catch (e) {
       if (mounted) {
@@ -48,9 +46,7 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       if (user != null && mounted) {
-        Navigator.of(
-          context,
-        ).pushReplacement(MaterialPageRoute(builder: (_) => const MainShell()));
+        // AuthGate handles navigation automatically
       }
     } catch (e) {
       if (mounted) {

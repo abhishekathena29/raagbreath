@@ -49,16 +49,16 @@ class AppBottomNav extends StatelessWidget {
                 label: 'Learn',
               ),
               BottomNavigationBarItem(
+                icon: Icon(Icons.auto_awesome),
+                label: 'AI Chat',
+              ),
+              BottomNavigationBarItem(
                 icon: Icon(Icons.medical_information),
                 label: 'Diagnose',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.healing),
                 label: 'Treatment',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                label: 'Profile',
               ),
             ],
           ),

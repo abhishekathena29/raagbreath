@@ -45,6 +45,7 @@ dependencies:
   scidart: ^0.0.2-dev.12
   path_provider: ^2.1.2
   permission_handler: ^11.3.0
+  google_generative_ai: ^0.4.7
 
 dev_dependencies:
   flutter_test:

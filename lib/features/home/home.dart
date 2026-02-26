@@ -4,6 +4,7 @@ import 'package:raag_breath/features/diagnose/diagnose_screen.dart';
 import 'package:raag_breath/features/treatment/treatment_screen.dart';
 import 'package:raag_breath/features/meditation/meditation.dart';
 import 'package:raag_breath/features/music/music.dart';
+import 'package:raag_breath/features/profile/profile.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -136,14 +137,26 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: const Color(0xFFC17D3C).withOpacity(0.12),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFE8DDD0)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ProfilePage()),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: const Color(0xFFC17D3C).withOpacity(0.12),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: const Color(0xFFE8DDD0)),
+            ),
+            child: const Icon(
+              Icons.person_outline,
+              color: Color(0xFFC17D3C),
+              size: 26,
+            ),
           ),
-          child: const Icon(Icons.spa, color: Color(0xFFC17D3C), size: 26),
         ),
       ],
     );
