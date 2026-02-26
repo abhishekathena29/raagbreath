@@ -6,15 +6,15 @@ class TeacherParentAlertScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
           'Teacher / Parent Alert',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -23,14 +23,14 @@ class TeacherParentAlertScreen extends StatelessWidget {
           children: [
             const Icon(
               Icons.warning_rounded,
-              color: Colors.orangeAccent,
+              color: Color(0xFFCF8A3E),
               size: 64,
             ),
             const SizedBox(height: 24),
             const Text(
               'Early Detection in Children',
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -39,7 +39,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
             const Text(
               'Parents and teachers play a crucial role in identifying early signs of lung problems in children. Children may not always be able to explain their symptoms clearly, so observing their behavior is important.',
               style: TextStyle(
-                color: Color(0xFFB7B0D7),
+                color: Color(0xFF8C7B6B),
                 fontSize: 16,
                 height: 1.5,
               ),
@@ -48,9 +48,9 @@ class TeacherParentAlertScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: const Color(0xFF1A143C),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFF2D2553)),
+                border: Border.all(color: const Color(0xFFE8DDD0)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +58,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
                   Text(
                     'Watch out for:',
                     style: TextStyle(
-                      color: Color(0xFF5AD8FE),
+                      color: Color(0xFFC17D3C),
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -75,7 +75,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
             const Text(
               'Action Plan',
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -84,7 +84,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
             const Text(
               'If a child shows repeated symptoms, it is important to seek medical advice. Early intervention can prevent the condition from worsening.\n\nTeachers can also help by ensuring that classrooms are well-ventilated and free from dust and pollutants.\n\nCreating awareness among parents and teachers ensures that children receive timely care and support, reducing the risk of long-term health issues.',
               style: TextStyle(
-                color: Color(0xFFB7B0D7),
+                color: Color(0xFF8C7B6B),
                 fontSize: 16,
                 height: 1.5,
               ),
@@ -110,7 +110,7 @@ class _BulletPoint extends StatelessWidget {
           const Text(
             '• ',
             style: TextStyle(
-              color: Color(0xFF5AD8FE),
+              color: Color(0xFFC17D3C),
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -118,7 +118,7 @@ class _BulletPoint extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: Colors.white, fontSize: 16),
+              style: const TextStyle(color: Color(0xFF3D2B1F), fontSize: 16),
             ),
           ),
         ],

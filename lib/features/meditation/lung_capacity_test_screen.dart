@@ -19,7 +19,6 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
   Timer? _timer;
   String _selectedPracticeType = 'Pranayama';
 
-  // Animation
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
 
@@ -63,14 +62,13 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
     final duration = _currentDuration;
     setState(() => _isTesting = false);
 
-    // Save to Firestore
     try {
       final user = Provider.of<AuthService>(context, listen: false).user;
       if (user != null) {
         final session = PracticeSession(
           userId: user.uid,
           date: DateTime.now(),
-          durationMinutes: (duration / 60).ceil().clamp(1, 60), // Min 1 min
+          durationMinutes: (duration / 60).ceil().clamp(1, 60),
           practiceType: 'Lung Test',
           title: 'Held for ${duration}s',
         );
@@ -89,21 +87,22 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1A143C),
-        title: const Text('Result', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text('Result', style: TextStyle(color: Color(0xFF3D2B1F))),
         content: Text(
           'You held your breath for $duration seconds!',
-          style: const TextStyle(color: Colors.white70),
+          style: const TextStyle(color: Color(0xFF8C7B6B)),
         ),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context); // Close dialog
-              Navigator.pop(context, true); // Close screen
+              Navigator.pop(context);
+              Navigator.pop(context, true);
             },
             child: const Text(
               'Done',
-              style: TextStyle(color: Color(0xFF72E8D4)),
+              style: TextStyle(color: Color(0xFFC17D3C)),
             ),
           ),
         ],
@@ -114,17 +113,17 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF3D2B1F)),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Measure Lung Capacity',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
       ),
       body: Padding(
@@ -135,7 +134,7 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
             const Text(
               'How long can you hold your breath?',
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
@@ -144,16 +143,20 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               value: _selectedPracticeType,
-              dropdownColor: const Color(0xFF1A143C),
-              style: const TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
+              dropdownColor: Colors.white,
+              style: const TextStyle(color: Color(0xFF3D2B1F)),
+              decoration: InputDecoration(
                 labelText: 'Practice Context',
-                labelStyle: TextStyle(color: Colors.white70),
+                labelStyle: const TextStyle(color: Color(0xFF8C7B6B)),
+                filled: true,
+                fillColor: Colors.white,
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF2D2553)),
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(color: Color(0xFFE8DDD0)),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF72E8D4)),
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: const BorderSide(color: Color(0xFFC17D3C)),
                 ),
               ),
               items: const [
@@ -182,12 +185,12 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _isTesting
-                          ? const Color(0xFF72E8D4).withOpacity(0.2)
-                          : const Color(0xFF2D2553).withOpacity(0.5),
+                          ? const Color(0xFFC17D3C).withOpacity(0.15)
+                          : const Color(0xFFE8DDD0).withOpacity(0.5),
                       border: Border.all(
                         color: _isTesting
-                            ? const Color(0xFF72E8D4)
-                            : const Color(0xFF2D2553),
+                            ? const Color(0xFFC17D3C)
+                            : const Color(0xFFE8DDD0),
                         width: 2,
                       ),
                     ),
@@ -195,7 +198,7 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
                       child: Text(
                         _isTesting ? '$_currentDuration' : 'Start',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: const Color(0xFF3D2B1F),
                           fontSize: _isTesting ? 64 : 32,
                           fontWeight: FontWeight.bold,
                         ),
@@ -210,7 +213,8 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
               ElevatedButton(
                 onPressed: _stopTest,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFF6B6B),
+                  backgroundColor: const Color(0xFFD32F2F),
+                  foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -218,14 +222,15 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
                 ),
                 child: const Text(
                   'STOP / EXHALE',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: TextStyle(fontSize: 18),
                 ),
               )
             else
               ElevatedButton(
                 onPressed: _startTest,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF72E8D4),
+                  backgroundColor: const Color(0xFFC17D3C),
+                  foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -233,7 +238,7 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
                 ),
                 child: const Text(
                   'INHALE & START',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF0D082B)),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             const SizedBox(height: 20),

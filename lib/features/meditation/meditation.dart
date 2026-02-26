@@ -10,19 +10,19 @@ class MeditationPage extends StatelessWidget {
       title: 'So-Ham',
       subtitle: 'Breath mantra for inward attention.',
       meta: '8-12 min',
-      accent: Color(0xFF72E8D4),
+      accent: Color(0xFFC17D3C),
     ),
     _LocalPracticeItem(
       title: 'Trataka',
       subtitle: 'Soft gaze to steady the mind.',
       meta: '5-8 min',
-      accent: Color(0xFF5AD8FE),
+      accent: Color(0xFF4A7FA8),
     ),
     _LocalPracticeItem(
       title: 'Yoga Nidra',
       subtitle: 'Guided body scan for deep rest.',
       meta: '15-20 min',
-      accent: Color(0xFFB0A3FF),
+      accent: Color(0xFF7B5EA7),
     ),
   ];
 
@@ -31,19 +31,19 @@ class MeditationPage extends StatelessWidget {
       title: 'Surya Namaskar',
       subtitle: 'Sun salutations to warm up the body.',
       meta: '10-12 min',
-      accent: Color(0xFF72E8D4),
+      accent: Color(0xFFC17D3C),
     ),
     _LocalPracticeItem(
       title: 'Hatha Basics',
       subtitle: 'Foundational postures for alignment.',
       meta: '12-15 min',
-      accent: Color(0xFF5AD8FE),
+      accent: Color(0xFF5B8A6E),
     ),
     _LocalPracticeItem(
       title: 'Moon Flow',
       subtitle: 'Gentle stretches for evening calm.',
       meta: '8-10 min',
-      accent: Color(0xFFB078FF),
+      accent: Color(0xFF8B6B4A),
     ),
   ];
 
@@ -61,17 +61,17 @@ class MeditationPage extends StatelessWidget {
                 const Text(
                   'Meditation',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF3D2B1F),
                     fontSize: 26,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 const Text(
                   'Guided journeys for stillness and focus.',
-                  style: TextStyle(color: Color(0xFFB7B0D7), fontSize: 15),
+                  style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
                 _PranayamaSection(
                   title: 'Pranayama Breaths',
                   items: PracticeData.pranayama,
@@ -103,7 +103,7 @@ class _PranayamaSection extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 18,
             fontWeight: FontWeight.w700,
           ),
@@ -146,7 +146,7 @@ class _Section extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 18,
             fontWeight: FontWeight.w700,
           ),
@@ -184,14 +184,21 @@ class _PracticeCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A143C),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFF2D2553)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE8DDD0)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF3D2B1F).withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         children: [
           Container(
-            width: 12,
+            width: 10,
             height: 42,
             decoration: BoxDecoration(
               color: accent,
@@ -206,16 +213,16 @@ class _PracticeCard extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                    color: Color(0xFF3D2B1F),
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
                 Text(
                   subtitle,
                   style: const TextStyle(
-                    color: Color(0xFFB7B0D7),
+                    color: Color(0xFF8C7B6B),
                     fontSize: 13,
                   ),
                 ),
@@ -228,7 +235,7 @@ class _PracticeCard extends StatelessWidget {
             style: TextStyle(
               color: accent,
               fontSize: 12,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],
@@ -259,9 +266,9 @@ class _SectionBackground extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF3B1F5D), Color(0xFF0D082B)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFFBF6EF), Color(0xFFF5EDE0)],
         ),
       ),
       child: Stack(
@@ -269,19 +276,19 @@ class _SectionBackground extends StatelessWidget {
           Positioned(
             top: -110,
             right: -60,
-            child: _glowCircle(const Color(0xFF72E8D4).withOpacity(0.22)),
+            child: _warmCircle(const Color(0xFFC17D3C).withOpacity(0.08)),
           ),
           Positioned(
             bottom: -90,
             left: -50,
-            child: _glowCircle(const Color(0xFFB078FF).withOpacity(0.2)),
+            child: _warmCircle(const Color(0xFF8B6B4A).withOpacity(0.06)),
           ),
         ],
       ),
     );
   }
 
-  Widget _glowCircle(Color color) {
+  Widget _warmCircle(Color color) {
     return Container(
       width: 260,
       height: 260,

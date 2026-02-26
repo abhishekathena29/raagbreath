@@ -34,23 +34,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: false,
         brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xFFF7F9FC),
+        scaffoldBackgroundColor: const Color(0xFFFBF6EF),
         colorScheme: const ColorScheme.light(
-          primary: Color(0xFF00B4D8),
-          secondary: Color(0xFF9D4EDD),
+          primary: Color(0xFFC17D3C),
+          secondary: Color(0xFF8B6B4A),
           surface: Colors.white,
-          onSurface: Color(0xFF1D3557),
+          onSurface: Color(0xFF3D2B1F),
         ),
         textTheme: ThemeData(brightness: Brightness.light).textTheme.apply(
-          bodyColor: const Color(0xFF1D3557),
-          displayColor: const Color(0xFF1D3557),
+          bodyColor: const Color(0xFF3D2B1F),
+          displayColor: const Color(0xFF3D2B1F),
         ),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          iconTheme: IconThemeData(color: Color(0xFF1D3557)),
+          iconTheme: IconThemeData(color: Color(0xFF3D2B1F)),
           titleTextStyle: TextStyle(
-            color: Color(0xFF1D3557),
+            color: Color(0xFF3D2B1F),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),

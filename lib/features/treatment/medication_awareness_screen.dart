@@ -6,27 +6,27 @@ class MedicationAwarenessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
           'Medication Awareness',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.medication, color: Color(0xFF72E8D4), size: 64),
+            const Icon(Icons.medication, color: Color(0xFFC17D3C), size: 64),
             const SizedBox(height: 24),
             const Text(
               'Understanding Your Inhalers',
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -35,7 +35,7 @@ class MedicationAwarenessScreen extends StatelessWidget {
             const Text(
               'Medications, such as inhalers, are commonly used to manage respiratory conditions. Inhalers deliver medicine directly to the lungs, making them effective and fast-acting. When used correctly, they are safe and help control symptoms.',
               style: TextStyle(
-                color: Color(0xFFB7B0D7),
+                color: Color(0xFF8C7B6B),
                 fontSize: 16,
                 height: 1.5,
               ),
@@ -84,9 +84,9 @@ class _DeviceCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A143C),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF2D2553)),
+        border: Border.all(color: const Color(0xFFE8DDD0)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,10 +94,10 @@ class _DeviceCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFF72E8D4).withOpacity(0.2),
+              color: const Color(0xFFC17D3C).withOpacity(0.12),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(icon, color: const Color(0xFF72E8D4), size: 24),
+            child: Icon(icon, color: const Color(0xFFC17D3C), size: 24),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -107,7 +107,7 @@ class _DeviceCard extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF3D2B1F),
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -116,7 +116,7 @@ class _DeviceCard extends StatelessWidget {
                 Text(
                   description,
                   style: const TextStyle(
-                    color: Color(0xFFB7B0D7),
+                    color: Color(0xFF8C7B6B),
                     fontSize: 14,
                     height: 1.4,
                   ),

@@ -8,7 +8,7 @@ class PracticeData {
       title: 'Nadi Shodhana',
       subtitle: 'Alternate nostril breathing for balance.',
       meta: '6-8 min',
-      accent: Color(0xFF72E8D4),
+      accent: Color(0xFFC17D3C),
       purpose: 'Balances the nervous system and calms the mind.',
       description:
           'Nadi Shodhana is a gentle breathing practice that involves alternating the breath between the left and right nostrils. It helps reduce stress, improve focus, and bring mental clarity.',
@@ -27,7 +27,7 @@ class PracticeData {
       title: 'Bhramari',
       subtitle: 'Humming breath to calm the nervous system.',
       meta: '4-6 min',
-      accent: Color(0xFF5AD8FE),
+      accent: Color(0xFF4A7FA8),
       purpose: 'Calms the nervous system and reduces anxiety.',
       description:
           'Bhramari involves producing a soft humming sound during exhalation. The vibration helps soothe the mind and release mental tension.',
@@ -45,7 +45,7 @@ class PracticeData {
       title: 'Ujjayi',
       subtitle: 'Ocean breath to deepen focus.',
       meta: '5-7 min',
-      accent: Color(0xFFB0A3FF),
+      accent: Color(0xFF8B6B4A),
       purpose: 'Deepens focus and promotes steady awareness.',
       description:
           'Ujjayi breathing is performed by gently constricting the throat, creating a soft ocean-like sound. It is commonly used to enhance concentration and regulate breath.',
@@ -63,7 +63,7 @@ class PracticeData {
       title: 'Kapalabhati',
       subtitle: 'Cleansing breath for energy.',
       meta: '3-5 min',
-      accent: Color(0xFFB078FF),
+      accent: Color(0xFF7B5EA7),
       purpose: 'Energizes the body and improves digestion.',
       description:
           'Kapalabhati is a cleansing technique involving rapid, forceful exhalations and passive inhalations. It stimulates energy and clears the respiratory system.',
@@ -84,7 +84,7 @@ class PracticeData {
       title: 'Raag Yaman',
       subtitle: 'Evening raag for clarity and devotion.',
       meta: 'Evening',
-      accent: Color(0xFF72E8D4),
+      accent: Color(0xFFC17D3C),
       timeOfDay: 'Evening',
       mood: 'Clarity, devotion, openness',
       description:
@@ -102,7 +102,7 @@ class PracticeData {
       title: 'Raag Bhairav',
       subtitle: 'Morning raag for grounded focus.',
       meta: 'Early morning',
-      accent: Color(0xFF5AD8FE),
+      accent: Color(0xFF4A7FA8),
       timeOfDay: 'Early morning',
       mood: 'Grounding, stability, focus',
       description:
@@ -120,7 +120,7 @@ class PracticeData {
       title: 'Raag Kafi',
       subtitle: 'Soft afternoon mood for ease.',
       meta: 'Afternoon',
-      accent: Color(0xFFB0A3FF),
+      accent: Color(0xFF8B6B4A),
       timeOfDay: 'Afternoon',
       mood: 'Ease, softness, emotional balance',
       description:
@@ -138,7 +138,7 @@ class PracticeData {
       title: 'Raag Bageshri',
       subtitle: 'Late night serenity and introspection.',
       meta: 'Late night',
-      accent: Color(0xFFB078FF),
+      accent: Color(0xFF7B5EA7),
       timeOfDay: 'Late night',
       mood: 'Serenity, introspection',
       description:

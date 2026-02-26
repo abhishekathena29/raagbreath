@@ -6,20 +6,18 @@ class LearnScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Learn',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Color(0xFF3D2B1F),
           ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: ListView(
         padding: const EdgeInsets.all(24),
@@ -27,7 +25,7 @@ class LearnScreen extends StatelessWidget {
           const Text(
             'Build Awareness',
             style: TextStyle(
-              color: Color(0xFF72E8D4),
+              color: Color(0xFFC17D3C),
               fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
@@ -106,21 +104,26 @@ class _ModuleCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-          ),
+          border: Border.all(color: const Color(0xFFE8DDD0)),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF3D2B1F).withOpacity(0.04),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFF72E8D4).withOpacity(0.2),
+                color: const Color(0xFFC17D3C).withOpacity(0.12),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: Icon(icon, color: const Color(0xFF72E8D4), size: 28),
+              child: Icon(icon, color: const Color(0xFFC17D3C), size: 28),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -130,7 +133,7 @@ class _ModuleCard extends StatelessWidget {
                   Text(
                     subtitle,
                     style: const TextStyle(
-                      color: Color(0xFF72E8D4),
+                      color: Color(0xFFC17D3C),
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
@@ -138,8 +141,8 @@ class _ModuleCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     title,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
+                    style: const TextStyle(
+                      color: Color(0xFF3D2B1F),
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),
@@ -147,7 +150,7 @@ class _ModuleCard extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: Color(0xFF72E8D4)),
+            const Icon(Icons.chevron_right, color: Color(0xFFC17D3C)),
           ],
         ),
       ),
@@ -165,21 +168,19 @@ class ModuleDetailScreen extends StatelessWidget {
     final moduleData = _getModuleData(moduleIndex);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: Text(
           moduleData['title']!,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Color(0xFF3D2B1F),
             fontSize: 18,
           ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -190,15 +191,15 @@ class ModuleDetailScreen extends StatelessWidget {
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
                   image: const NetworkImage(
                     'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=900&q=80',
-                  ), // Placeholder visual
+                  ),
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.4),
+                    Colors.black.withOpacity(0.3),
                     BlendMode.darken,
                   ),
                 ),
@@ -213,8 +214,8 @@ class ModuleDetailScreen extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               moduleData['content']!,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              style: const TextStyle(
+                color: Color(0xFF8C7B6B),
                 fontSize: 16,
                 height: 1.6,
               ),
@@ -224,7 +225,7 @@ class ModuleDetailScreen extends StatelessWidget {
               const Text(
                 'General Lung Terms',
                 style: TextStyle(
-                  color: Color(0xFF72E8D4),
+                  color: Color(0xFFC17D3C),
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -232,10 +233,8 @@ class ModuleDetailScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 moduleData['terms']!,
-                style: TextStyle(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.6),
+                style: const TextStyle(
+                  color: Color(0xFF8C7B6B),
                   fontSize: 15,
                   height: 1.6,
                 ),

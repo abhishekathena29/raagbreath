@@ -10,19 +10,19 @@ class MusicPage extends StatelessWidget {
       title: 'Teentaal',
       subtitle: '16 beats, steady and expansive.',
       meta: 'Dha Dhin Dhin Dha',
-      accent: Color(0xFF72E8D4),
+      accent: Color(0xFFC17D3C),
     ),
     _LocalPracticeItem(
       title: 'Ektaal',
       subtitle: '12 beats for slow vilambit.',
       meta: 'Dhin Dhin DhaGe',
-      accent: Color(0xFF5AD8FE),
+      accent: Color(0xFF4A7FA8),
     ),
     _LocalPracticeItem(
       title: 'Rupak',
       subtitle: '7 beats with a rolling feel.',
       meta: 'Tin Tin Na Dhin Na',
-      accent: Color(0xFFB0A3FF),
+      accent: Color(0xFF7B5EA7),
     ),
   ];
 
@@ -31,19 +31,19 @@ class MusicPage extends StatelessWidget {
       title: 'AUM Humming',
       subtitle: 'Resonant humming to steady the breath.',
       meta: '5-7 min',
-      accent: Color(0xFF72E8D4),
+      accent: Color(0xFFC17D3C),
     ),
     _LocalPracticeItem(
       title: 'Sargam Warmup',
       subtitle: 'Sa Re Ga to loosen the voice.',
       meta: '7-10 min',
-      accent: Color(0xFF5AD8FE),
+      accent: Color(0xFF4A7FA8),
     ),
     _LocalPracticeItem(
       title: 'Tanpura Drone',
       subtitle: 'Sustain tone for pitch focus.',
       meta: '10-12 min',
-      accent: Color(0xFFB078FF),
+      accent: Color(0xFF7B5EA7),
     ),
   ];
 
@@ -61,7 +61,7 @@ class MusicPage extends StatelessWidget {
                 const Text(
                   'Music',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF3D2B1F),
                     fontSize: 26,
                     fontWeight: FontWeight.w700,
                   ),
@@ -69,7 +69,7 @@ class MusicPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 const Text(
                   'Indian classical practice for breath, raga, and rhythm.',
-                  style: TextStyle(color: Color(0xFFB7B0D7), fontSize: 15),
+                  style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
                 ),
                 const SizedBox(height: 20),
                 _RaagSection(
@@ -103,7 +103,7 @@ class _RaagSection extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 18,
             fontWeight: FontWeight.w700,
           ),
@@ -146,7 +146,7 @@ class _Section extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 18,
             fontWeight: FontWeight.w700,
           ),
@@ -184,9 +184,16 @@ class _PracticeCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A143C),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFF2D2553)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE8DDD0)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF3D2B1F).withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -206,7 +213,7 @@ class _PracticeCard extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFF3D2B1F),
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),
@@ -215,7 +222,7 @@ class _PracticeCard extends StatelessWidget {
                 Text(
                   subtitle,
                   style: const TextStyle(
-                    color: Color(0xFFB7B0D7),
+                    color: Color(0xFF8C7B6B),
                     fontSize: 13,
                   ),
                 ),
@@ -259,9 +266,9 @@ class _SectionBackground extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF3B1F5D), Color(0xFF0D082B)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFFBF6EF), Color(0xFFF5EDE0)],
         ),
       ),
       child: Stack(
@@ -269,19 +276,19 @@ class _SectionBackground extends StatelessWidget {
           Positioned(
             top: -120,
             right: -70,
-            child: _glowCircle(const Color(0xFF72E8D4).withOpacity(0.18)),
+            child: _warmCircle(const Color(0xFFC17D3C).withOpacity(0.08)),
           ),
           Positioned(
             top: 80,
             left: -70,
-            child: _glowCircle(const Color(0xFF5AD8FE).withOpacity(0.18)),
+            child: _warmCircle(const Color(0xFF8B6B4A).withOpacity(0.06)),
           ),
         ],
       ),
     );
   }
 
-  Widget _glowCircle(Color color) {
+  Widget _warmCircle(Color color) {
     return Container(
       width: 260,
       height: 260,

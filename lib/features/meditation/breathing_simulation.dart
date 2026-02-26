@@ -30,7 +30,6 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
   int _seconds = 0;
   Timer? _durationTimer;
 
-  // Cycle state
   bool _isActive = true;
 
   @override
@@ -68,7 +67,6 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
     _durationTimer?.cancel();
     _controller.stop();
 
-    // Save Session if duration > 10 seconds (to avoid accidental opens)
     if (_seconds > 10) {
       try {
         final user = Provider.of<AuthService>(context, listen: false).user;
@@ -76,8 +74,7 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
           final session = PracticeSession(
             userId: user.uid,
             date: DateTime.now(),
-            durationMinutes: (_seconds / 60)
-                .ceil(), // Round up to nearest minute
+            durationMinutes: (_seconds / 60).ceil(),
             practiceType: 'Breathing',
             title: widget.title,
           );
@@ -129,18 +126,18 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.white),
+          icon: const Icon(Icons.close, color: Color(0xFF3D2B1F)),
           onPressed: _endSession,
         ),
         title: Text(
           widget.title,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -162,12 +159,12 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: widget.accent.withOpacity(
-                          0.1 * _opacityAnimation.value,
+                          0.06 * _opacityAnimation.value,
                         ),
                         boxShadow: [
                           BoxShadow(
                             color: widget.accent.withOpacity(
-                              0.2 * _opacityAnimation.value,
+                              0.1 * _opacityAnimation.value,
                             ),
                             blurRadius: 50,
                             spreadRadius: 20,
@@ -183,8 +180,8 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
                         shape: BoxShape.circle,
                         gradient: RadialGradient(
                           colors: [
-                            widget.accent.withOpacity(0.4),
-                            widget.accent.withOpacity(0.1),
+                            widget.accent.withOpacity(0.3),
+                            widget.accent.withOpacity(0.08),
                           ],
                         ),
                       ),
@@ -200,7 +197,7 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
                       child: Center(
                         child: Icon(
                           Icons.air,
-                          color: const Color(0xFF0D082B),
+                          color: Colors.white,
                           size: 40 * _animation.value,
                         ),
                       ),
@@ -222,14 +219,13 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
             const SizedBox(height: 16),
             const Text(
               'Follow the rhythm of the circle',
-              style: TextStyle(color: Color(0xFFB7B0D7), fontSize: 16),
+              style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 16),
             ),
             const SizedBox(height: 32),
-            // Timer Display
             Text(
               '${(_seconds ~/ 60).toString().padLeft(2, '0')}:${(_seconds % 60).toString().padLeft(2, '0')}',
               style: const TextStyle(
-                color: Colors.white70,
+                color: Color(0xFF8C7B6B),
                 fontSize: 24,
                 fontFamily: 'monospace',
               ),
@@ -239,18 +235,18 @@ class _BreathingSimulationScreenState extends State<BreathingSimulationScreen>
               onPressed: _endSession,
               icon: const Icon(
                 Icons.stop_circle_outlined,
-                color: Color(0xFFFF6B6B),
+                color: Color(0xFFD32F2F),
               ),
               label: const Text(
                 'End Session',
-                style: TextStyle(color: Color(0xFFFF6B6B), fontSize: 16),
+                style: TextStyle(color: Color(0xFFD32F2F), fontSize: 16),
               ),
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
                   vertical: 12,
                 ),
-                backgroundColor: const Color(0xFFFF6B6B).withOpacity(0.1),
+                backgroundColor: const Color(0xFFD32F2F).withOpacity(0.08),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

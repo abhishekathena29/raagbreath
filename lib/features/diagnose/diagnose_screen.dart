@@ -10,20 +10,18 @@ class DiagnoseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Diagnose',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Color(0xFF3D2B1F),
           ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: ListView(
         padding: const EdgeInsets.all(24),
@@ -31,7 +29,7 @@ class DiagnoseScreen extends StatelessWidget {
           const Text(
             'Check Your Symptoms',
             style: TextStyle(
-              color: Color(0xFF5AD8FE),
+              color: Color(0xFFC17D3C),
               fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
@@ -41,7 +39,7 @@ class DiagnoseScreen extends StatelessWidget {
             title: 'Symptom Checker',
             subtitle: 'Quick questionnaire to assess your lung condition',
             icon: Icons.checklist,
-            accentColor: const Color(0xFF5AD8FE),
+            accentColor: const Color(0xFF4A7FA8),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const SymptomCheckerScreen()),
@@ -52,7 +50,7 @@ class DiagnoseScreen extends StatelessWidget {
             title: 'Risk Assessment',
             subtitle: 'Calculate your lung health score',
             icon: Icons.analytics,
-            accentColor: const Color(0xFF72E8D4),
+            accentColor: const Color(0xFFC17D3C),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const RiskAssessmentScreen()),
@@ -63,7 +61,7 @@ class DiagnoseScreen extends StatelessWidget {
             title: 'Lung Capacity Test',
             subtitle: 'Track how efficiently your lungs use oxygen',
             icon: Icons.air,
-            accentColor: const Color(0xFFB0A3FF),
+            accentColor: const Color(0xFF7B5EA7),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const LungCapacityTestScreen()),
@@ -74,7 +72,7 @@ class DiagnoseScreen extends StatelessWidget {
             title: 'Teacher / Parent Alert',
             subtitle: 'Identify early signs of lung problems in children',
             icon: Icons.warning_amber_rounded,
-            accentColor: Colors.orangeAccent,
+            accentColor: const Color(0xFFCF8A3E),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -110,18 +108,23 @@ class _DiagnoseCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-          ),
+          border: Border.all(color: const Color(0xFFE8DDD0)),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF3D2B1F).withOpacity(0.04),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: accentColor.withOpacity(0.2),
+                color: accentColor.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Icon(icon, color: accentColor, size: 28),
@@ -133,8 +136,8 @@ class _DiagnoseCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
+                    style: const TextStyle(
+                      color: Color(0xFF3D2B1F),
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),
@@ -142,10 +145,8 @@ class _DiagnoseCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.6),
+                    style: const TextStyle(
+                      color: Color(0xFF8C7B6B),
                       fontSize: 13,
                       height: 1.3,
                     ),

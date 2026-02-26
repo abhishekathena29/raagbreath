@@ -6,27 +6,27 @@ class SchoolActionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
           'School Action Kit',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.school, color: Color(0xFFB0A3FF), size: 64),
+            const Icon(Icons.school, color: Color(0xFF5B8A6E), size: 64),
             const SizedBox(height: 24),
             const Text(
               'Supporting Students',
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -35,7 +35,7 @@ class SchoolActionScreen extends StatelessWidget {
             const Text(
               'Schools play a critical role in supporting students with respiratory conditions. Teachers should be trained to recognize signs of breathing difficulties and respond appropriately.',
               style: TextStyle(
-                color: Color(0xFFB7B0D7),
+                color: Color(0xFF8C7B6B),
                 fontSize: 16,
                 height: 1.5,
               ),
@@ -44,9 +44,9 @@ class SchoolActionScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: const Color(0xFF1A143C),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFF2D2553)),
+                border: Border.all(color: const Color(0xFFE8DDD0)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +54,7 @@ class SchoolActionScreen extends StatelessWidget {
                   Text(
                     'In Case of Asthma Attack:',
                     style: TextStyle(
-                      color: Color(0xFFFF6B6B),
+                      color: Color(0xFFD32F2F),
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -77,7 +77,7 @@ class SchoolActionScreen extends StatelessWidget {
             const Text(
               'Preventative Measures',
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -86,7 +86,7 @@ class SchoolActionScreen extends StatelessWidget {
             const Text(
               '• Minimize exposure to dust and pollutants in classrooms.\n• Promote awareness by conducting health sessions.\n• Encourage students to adopt healthy habits, like proper hydration and breathing exercises.',
               style: TextStyle(
-                color: Color(0xFFB7B0D7),
+                color: Color(0xFF8C7B6B),
                 fontSize: 16,
                 height: 1.5,
               ),
@@ -113,11 +113,11 @@ class _StepAction extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 12,
-            backgroundColor: const Color(0xFFFF6B6B).withOpacity(0.2),
+            backgroundColor: const Color(0xFFD32F2F).withOpacity(0.12),
             child: Text(
               step,
               style: const TextStyle(
-                color: Color(0xFFFF6B6B),
+                color: Color(0xFFD32F2F),
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
@@ -127,7 +127,7 @@ class _StepAction extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: Colors.white, fontSize: 15),
+              style: const TextStyle(color: Color(0xFF3D2B1F), fontSize: 15),
             ),
           ),
         ],

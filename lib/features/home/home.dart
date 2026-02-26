@@ -21,20 +21,25 @@ class HomePage extends StatelessWidget {
               children: [
                 _buildHeader(context),
                 const SizedBox(height: 32),
-                Text(
+                const Text(
                   'Your Lung Health Hub',
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: Color(0xFF3D2B1F),
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
                   ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Choose a section to get started',
+                  style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 14),
                 ),
                 const SizedBox(height: 24),
                 _MainSectionCard(
                   title: 'Learn',
                   subtitle: 'Build awareness and know your lungs',
                   icon: Icons.auto_stories,
-                  accentColor: const Color(0xFF72E8D4),
+                  accentColor: const Color(0xFF5B8A6E),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -42,12 +47,12 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
                 _MainSectionCard(
                   title: 'Diagnose',
                   subtitle: 'Check symptoms and assess your risks',
                   icon: Icons.health_and_safety,
-                  accentColor: const Color(0xFF5AD8FE),
+                  accentColor: const Color(0xFF4A7FA8),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -55,12 +60,12 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
                 _MainSectionCard(
                   title: 'Treatment',
                   subtitle: 'Take action, exercise and find doctors',
                   icon: Icons.healing,
-                  accentColor: const Color(0xFFB0A3FF),
+                  accentColor: const Color(0xFFC17D3C),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -70,12 +75,12 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
                 _MainSectionCard(
                   title: 'Meditation & Breathing',
                   subtitle: 'Practice exercises to strengthen your lungs',
                   icon: Icons.self_improvement,
-                  accentColor: const Color(0xFF00B4D8),
+                  accentColor: const Color(0xFF8B6B4A),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -83,12 +88,12 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
                 _MainSectionCard(
                   title: 'Music Therapy',
                   subtitle: 'Listen to ragas that enhance breathing',
                   icon: Icons.music_note,
-                  accentColor: const Color(0xFF9D4EDD),
+                  accentColor: const Color(0xFF7B5EA7),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -111,19 +116,19 @@ class HomePage extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Hello! 👋',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                color: Color(0xFF8C7B6B),
                 fontSize: 15,
                 height: 1.2,
               ),
             ),
             const SizedBox(height: 4),
-            Text(
+            const Text(
               'Welcome Back',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
+                color: Color(0xFF3D2B1F),
                 fontSize: 26,
                 fontWeight: FontWeight.w700,
                 height: 1.2,
@@ -134,21 +139,11 @@ class HomePage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
+            color: const Color(0xFFC17D3C).withOpacity(0.12),
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 12,
-                offset: const Offset(0, 6),
-              ),
-            ],
+            border: Border.all(color: const Color(0xFFE8DDD0)),
           ),
-          child: Icon(
-            Icons.spa,
-            color: Theme.of(context).colorScheme.primary,
-            size: 26,
-          ),
+          child: const Icon(Icons.spa, color: Color(0xFFC17D3C), size: 26),
         ),
       ],
     );
@@ -176,17 +171,15 @@ class _MainSectionCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-          ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: const Color(0xFFE8DDD0)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
+              color: const Color(0xFF3D2B1F).withOpacity(0.06),
+              blurRadius: 12,
               offset: const Offset(0, 4),
             ),
           ],
@@ -194,40 +187,38 @@ class _MainSectionCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: accentColor.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(20),
+                color: accentColor.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(16),
               ),
-              child: Icon(icon, color: accentColor, size: 32),
+              child: Icon(icon, color: accentColor, size: 28),
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: 20,
+                    style: const TextStyle(
+                      color: Color(0xFF3D2B1F),
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.6),
-                      fontSize: 14,
+                    style: const TextStyle(
+                      color: Color(0xFF8C7B6B),
+                      fontSize: 13,
                     ),
                   ),
                 ],
               ),
             ),
-            Icon(Icons.chevron_right, color: accentColor, size: 28),
+            Icon(Icons.chevron_right, color: accentColor, size: 26),
           ],
         ),
       ),
@@ -241,37 +232,34 @@ class _BackgroundLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-            Theme.of(context).scaffoldBackgroundColor,
-          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFFBF6EF), Color(0xFFF5EDE0)],
         ),
       ),
       child: Stack(
         children: [
           Positioned(
-            top: -120,
-            right: -60,
-            child: _glowCircle(const Color(0xFF72E8D4).withOpacity(0.25)),
+            top: -100,
+            right: -50,
+            child: _warmCircle(const Color(0xFFC17D3C).withOpacity(0.08)),
           ),
           Positioned(
-            top: 80,
+            top: 200,
             left: -70,
-            child: _glowCircle(const Color(0xFFB078FF).withOpacity(0.2)),
+            child: _warmCircle(const Color(0xFF8B6B4A).withOpacity(0.06)),
           ),
         ],
       ),
     );
   }
 
-  Widget _glowCircle(Color color) {
+  Widget _warmCircle(Color color) {
     return Container(
-      width: 260,
-      height: 260,
+      width: 280,
+      height: 280,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(colors: [color, Colors.transparent]),

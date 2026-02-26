@@ -14,7 +14,7 @@ import 'models/practice_session.dart';
 
 class BreathingSessionScreen extends StatefulWidget {
   final String title;
-  final String techniqueId; // 'nadi_shodhana', 'bhramari', 'kapalbhati', etc.
+  final String techniqueId;
   final Color accent;
 
   const BreathingSessionScreen({
@@ -30,11 +30,9 @@ class BreathingSessionScreen extends StatefulWidget {
 
 class _BreathingSessionScreenState extends State<BreathingSessionScreen>
     with TickerProviderStateMixin {
-  /// Services
   final _audioRecorder = AudioRecorder();
   final _breathingService = BreathingService();
 
-  /// State
   bool _isRecording = false;
   bool _hasPermission = false;
   StreamSubscription<RecordState>? _recordSub;
@@ -42,22 +40,19 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
   Timer? _analysisTimer;
   Timer? _sessionTimer;
 
-  /// Metrics
   int _secondsElapsed = 0;
   double _currentRMS = 0.0;
   // ignore: unused_field
   final List<double> _rmsBuffer = [];
-  final List<double> _analysisBuffer = []; // For FFT/Advanced
+  final List<double> _analysisBuffer = [];
 
-  // Results
   double _totalVolume = 0.0;
   // ignore: unused_field
-  double _techniqueScore = 0.0; // 0-100
+  double _techniqueScore = 0.0;
   // ignore: unused_field
-  double _stabilityScore = 0.0; // 0-1 (For Bhramari)
-  double _maxFlow = 0.0; // For Kapalbhati
+  double _stabilityScore = 0.0;
+  double _maxFlow = 0.0;
 
-  /// Animations
   late AnimationController _visualizerController;
 
   @override
@@ -107,15 +102,9 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
         setState(() => _isRecording = true);
         _startTimer();
 
-        // 1. Process Stream for Real-time Analysis (FFT/Raw data)
-        // With record package 5.x, startStream returns a Stream<Uint8List>
         stream.listen((data) {
           _processAudioChunk(data);
         });
-
-        // 2. Amplitude stream for quick RMS checks (optional if calculating manually)
-        // Note: record package might not support both stream and getAmplitude concurrent?
-        // We actally can calc RMS from PCM stream manually.
       }
     } catch (e) {
       debugPrint("Error starting recorder: $e");
@@ -136,7 +125,6 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
   }
 
   void _processAudioChunk(Uint8List data) {
-    // Convert 16-bit PCM to doubles -1.0 to 1.0
     final buffer = data.buffer.asByteData();
     List<double> samples = [];
 
@@ -149,45 +137,32 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
 
     if (samples.isEmpty) return;
 
-    // 1. Calculate RMS
     double rms = _breathingService.calculateRMS(samples);
 
-    // Safety check: Too loud?
     if (rms > 0.95) {
       HapticFeedback.heavyImpact();
-      // Show "Slow Down" toast/overlay (simplified here)
     }
 
-    // Accumulate Volume
-    // Assume this chunk represents X duration.
-    // 44100Hz, chunk size varies.
     double chunkDuration = samples.length / 44100.0;
 
-    // Simple noise gate
     if (rms > 0.02) {
-      // Only count valid breath
       double vol = _breathingService.calculateVolume([rms], chunkDuration);
       _totalVolume += vol;
 
-      // Specific Logic
       if (widget.techniqueId == 'kapalbhati') {
         double power = _breathingService.calculateKapalbhatiPower(samples);
         if (power > _maxFlow) _maxFlow = power;
       }
 
       if (widget.techniqueId == 'bhramari') {
-        // FFT Analysis occasionally
         _analysisBuffer.addAll(samples);
-        // Process every ~0.5s (approx 22000 samples)
         if (_analysisBuffer.length > 4096) {
-          // Take 4096 for FFT
           final fftData = _analysisBuffer.sublist(0, 4096);
           double freq = _breathingService.calculateDominantFrequency(
             fftData,
             44100,
           );
 
-          // Check consistency - if freq in range 100-300Hz (Humming)
           if (freq > 100 && freq < 400) {
             // Good hum
           }
@@ -206,7 +181,6 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
   }
 
   Future<void> _showResults() async {
-    // Get User Data for PVC
     final authService = Provider.of<AuthService>(context, listen: false);
     final firebaseUser = authService.user;
 
@@ -216,7 +190,6 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
     UserModel? user;
 
     if (firebaseUser != null) {
-      // Fetch full user model
       user = await FirestoreService().getUser(firebaseUser.uid);
 
       if (user != null) {
@@ -237,7 +210,6 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
       }
     }
 
-    // Save Session
     try {
       if (user != null) {
         final session = PracticeSession(
@@ -258,7 +230,7 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -271,7 +243,7 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
             const Text(
               'Session Complete',
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -285,13 +257,11 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
               label: 'Predicted Capacity',
               value: '${pvc.toStringAsFixed(1)} L',
             ),
-            const Divider(color: Colors.white24, height: 32),
+            const Divider(color: Color(0xFFE8DDD0), height: 32),
             _ResultRow(
               label: 'Lung Age',
               value: '$lungAge years',
-              // We don't have user age handy unless we fetch it, but we calculated lungAge above.
-              // Let's just assume if lungAge < 30 it's good or compare to pvc.
-              isGood: pvc > 0 && lungAge < 40, // Simplified check
+              isGood: pvc > 0 && lungAge < 40,
             ),
 
             if (widget.techniqueId == 'kapalbhati')
@@ -306,21 +276,19 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: widget.accent,
+                  foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
                 onPressed: () {
-                  Navigator.pop(context); // Close sheet
-                  Navigator.pop(context); // Close screen
+                  Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: const Text(
                   'Done',
-                  style: TextStyle(
-                    color: Color(0xFF0D082B),
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -344,30 +312,34 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.white),
+          icon: const Icon(Icons.close, color: Color(0xFF3D2B1F)),
           onPressed: _isRecording ? _stopSession : () => Navigator.pop(context),
         ),
-        title: Text(widget.title, style: const TextStyle(color: Colors.white)),
+        title: Text(
+          widget.title,
+          style: const TextStyle(color: Color(0xFF3D2B1F)),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Visualizer
             Container(
               width: 300,
               height: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: widget.accent.withOpacity(0.1),
+                color: widget.accent.withOpacity(0.08),
                 boxShadow: [
                   BoxShadow(
-                    color: widget.accent.withOpacity(0.1 + (_currentRMS * 0.4)),
+                    color: widget.accent.withOpacity(
+                      0.08 + (_currentRMS * 0.3),
+                    ),
                     blurRadius: 50 + (_currentRMS * 100),
                     spreadRadius: 10 + (_currentRMS * 50),
                   ),
@@ -385,7 +357,7 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
             Text(
               _isRecording ? 'Breathing...' : 'Ready?',
               style: const TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
               ),
@@ -394,7 +366,7 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
             Text(
               'Time: ${(_secondsElapsed ~/ 60).toString().padLeft(2, '0')}:${(_secondsElapsed % 60).toString().padLeft(2, '0')}',
               style: const TextStyle(
-                color: Colors.white54,
+                color: Color(0xFF8C7B6B),
                 fontSize: 18,
                 fontFamily: 'monospace',
               ),
@@ -405,6 +377,7 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: widget.accent,
+                  foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 48,
                     vertical: 20,
@@ -414,23 +387,19 @@ class _BreathingSessionScreenState extends State<BreathingSessionScreen>
                   ),
                 ),
                 onPressed: _startSession,
-                icon: const Icon(Icons.play_arrow, color: Color(0xFF0D082B)),
+                icon: const Icon(Icons.play_arrow),
                 label: const Text(
                   'Start',
-                  style: TextStyle(
-                    color: Color(0xFF0D082B),
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               )
             else
               TextButton.icon(
                 onPressed: _stopSession,
-                icon: const Icon(Icons.stop, color: Color(0xFFFF6B6B)),
+                icon: const Icon(Icons.stop, color: Color(0xFFD32F2F)),
                 label: const Text(
                   'Stop Session',
-                  style: TextStyle(color: Color(0xFFFF6B6B), fontSize: 18),
+                  style: TextStyle(color: Color(0xFFD32F2F), fontSize: 18),
                 ),
               ),
           ],
@@ -456,14 +425,14 @@ class _ResultRow extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(color: Colors.white70, fontSize: 16),
+            style: const TextStyle(color: Color(0xFF8C7B6B), fontSize: 16),
           ),
           Row(
             children: [
               Text(
                 value,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFF3D2B1F),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -472,7 +441,9 @@ class _ResultRow extends StatelessWidget {
                 const SizedBox(width: 8),
                 Icon(
                   isGood! ? Icons.check_circle : Icons.warning_amber_rounded,
-                  color: isGood! ? Colors.greenAccent : Colors.orangeAccent,
+                  color: isGood!
+                      ? const Color(0xFF5B8A6E)
+                      : Colors.orangeAccent,
                   size: 20,
                 ),
               ],

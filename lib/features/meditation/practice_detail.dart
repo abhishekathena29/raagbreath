@@ -12,7 +12,7 @@ class PracticeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       body: Stack(
         children: [
           const _DetailBackground(),
@@ -25,7 +25,7 @@ class PracticeDetailScreen extends StatelessWidget {
                   leading: IconButton(
                     icon: const Icon(
                       Icons.arrow_back_ios_new,
-                      color: Colors.white,
+                      color: Color(0xFF3D2B1F),
                     ),
                     onPressed: () => Navigator.pop(context),
                   ),
@@ -34,7 +34,7 @@ class PracticeDetailScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   sliver: SliverList(
                     delegate: SliverChildListDelegate([
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
                           Container(
@@ -43,7 +43,7 @@ class PracticeDetailScreen extends StatelessWidget {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: item.accent.withOpacity(0.15),
+                              color: item.accent.withOpacity(0.12),
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: item.accent.withOpacity(0.3),
@@ -64,8 +64,8 @@ class PracticeDetailScreen extends StatelessWidget {
                       Text(
                         item.title,
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
+                          color: Color(0xFF3D2B1F),
+                          fontSize: 30,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -116,7 +116,7 @@ class PracticeDetailScreen extends StatelessWidget {
                       const Text(
                         'Steps to Practice',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xFF3D2B1F),
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                         ),
@@ -168,12 +168,12 @@ class PracticeDetailScreen extends StatelessWidget {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: item.accent,
-                            foregroundColor: const Color(0xFF0D082B),
+                            foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 18),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            elevation: 8,
+                            elevation: 4,
                             shadowColor: item.accent.withOpacity(0.4),
                           ),
                           onPressed: () {
@@ -199,12 +199,12 @@ class PracticeDetailScreen extends StatelessWidget {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: item.accent,
-                            foregroundColor: const Color(0xFF0D082B),
+                            foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 18),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            elevation: 8,
+                            elevation: 4,
                             shadowColor: item.accent.withOpacity(0.4),
                           ),
                           onPressed: () {
@@ -274,7 +274,7 @@ class _DetailSection extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Color(0xFFB7B0D7),
+            color: Color(0xFF8C7B6B),
             fontSize: 14,
             fontWeight: FontWeight.w700,
             letterSpacing: 1.2,
@@ -284,7 +284,7 @@ class _DetailSection extends StatelessWidget {
         Text(
           content,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 16,
             height: 1.6,
             fontWeight: FontWeight.w400,
@@ -313,9 +313,9 @@ class _InfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF17123A),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF2D2553)),
+        border: Border.all(color: const Color(0xFFE8DDD0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,7 +325,7 @@ class _InfoCard extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-              color: Color(0xFFB7B0D7),
+              color: Color(0xFF8C7B6B),
               fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
@@ -334,7 +334,7 @@ class _InfoCard extends StatelessWidget {
           Text(
             value,
             style: const TextStyle(
-              color: Colors.white,
+              color: Color(0xFF3D2B1F),
               fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
@@ -367,9 +367,9 @@ class _StepItem extends StatelessWidget {
             width: 28,
             height: 28,
             decoration: BoxDecoration(
-              color: accent.withOpacity(0.15),
+              color: accent.withOpacity(0.12),
               shape: BoxShape.circle,
-              border: Border.all(color: accent.withOpacity(0.5), width: 1.5),
+              border: Border.all(color: accent.withOpacity(0.4), width: 1.5),
             ),
             child: Center(
               child: Text(
@@ -387,7 +387,7 @@ class _StepItem extends StatelessWidget {
             child: Text(
               text,
               style: const TextStyle(
-                color: Colors.white,
+                color: Color(0xFF3D2B1F),
                 fontSize: 15,
                 height: 1.5,
               ),
@@ -407,9 +407,9 @@ class _DetailBackground extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF3B1F5D), Color(0xFF0D082B)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFFBF6EF), Color(0xFFF5EDE0)],
         ),
       ),
       child: Stack(
@@ -424,7 +424,7 @@ class _DetailBackground extends StatelessWidget {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    const Color(0xFF72E8D4).withOpacity(0.15),
+                    const Color(0xFFC17D3C).withOpacity(0.08),
                     Colors.transparent,
                   ],
                 ),

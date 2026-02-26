@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       body: Stack(
         children: [
           const _AuthBackground(),
@@ -76,21 +76,48 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 40),
+                  // Logo / App name
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFC17D3C).withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: const Icon(
+                          Icons.air,
+                          color: Color(0xFFC17D3C),
+                          size: 28,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      const Text(
+                        'Raag Breath',
+                        style: TextStyle(
+                          color: Color(0xFF3D2B1F),
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
                   const Text(
                     'Welcome back',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
+                      color: Color(0xFF3D2B1F),
+                      fontSize: 30,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(height: 6),
                   const Text(
                     'Sign in to continue your calm',
-                    style: TextStyle(color: Color(0xFFB7B0D7), fontSize: 15),
+                    style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
                   ),
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 32),
                   _InputField(
                     label: 'Email',
                     icon: Icons.mail_outline,
@@ -104,9 +131,13 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _passwordController,
                     obscure: true,
                   ),
-                  const SizedBox(height: 22),
+                  const SizedBox(height: 28),
                   if (_isLoading)
-                    const Center(child: CircularProgressIndicator())
+                    const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xFFC17D3C),
+                      ),
+                    )
                   else
                     Column(
                       children: [
@@ -114,13 +145,16 @@ class _LoginPageState extends State<LoginPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF72E8D4),
-                              foregroundColor: const Color(0xFF0D082B),
+                              backgroundColor: const Color(0xFFC17D3C),
+                              foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
                               ),
-                              elevation: 4,
+                              elevation: 2,
+                              shadowColor: const Color(
+                                0xFFC17D3C,
+                              ).withOpacity(0.3),
                             ),
                             onPressed: _handleLogin,
                             child: const Text(
@@ -137,9 +171,9 @@ class _LoginPageState extends State<LoginPage> {
                           width: double.infinity,
                           child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                              foregroundColor: const Color(0xFF72E8D4),
+                              foregroundColor: const Color(0xFFC17D3C),
                               side: const BorderSide(
-                                color: Color(0xFF72E8D4),
+                                color: Color(0xFFC17D3C),
                                 width: 1.5,
                               ),
                               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -159,13 +193,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
                         "Don't have an account?",
-                        style: TextStyle(color: Color(0xFFB7B0D7)),
+                        style: TextStyle(color: Color(0xFF8C7B6B)),
                       ),
                       TextButton(
                         onPressed: () {
@@ -178,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text(
                           'Sign up',
                           style: TextStyle(
-                            color: Color(0xFF72E8D4),
+                            color: Color(0xFFC17D3C),
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -213,21 +247,21 @@ class _InputField extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscure,
-      cursorColor: const Color(0xFF72E8D4),
-      style: const TextStyle(color: Colors.white),
+      cursorColor: const Color(0xFFC17D3C),
+      style: const TextStyle(color: Color(0xFF3D2B1F)),
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: const Color(0xFF72E8D4)),
+        prefixIcon: Icon(icon, color: const Color(0xFFC17D3C)),
         filled: true,
-        fillColor: const Color(0xFF17123A),
-        labelStyle: const TextStyle(color: Color(0xFFB7B0D7)),
+        fillColor: Colors.white,
+        labelStyle: const TextStyle(color: Color(0xFF8C7B6B)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Color(0xFF2D2553)),
+          borderSide: const BorderSide(color: Color(0xFFE8DDD0)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Color(0xFF72E8D4)),
+          borderSide: const BorderSide(color: Color(0xFFC17D3C), width: 1.5),
         ),
       ),
     );
@@ -242,32 +276,40 @@ class _AuthBackground extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF3B1F5D), Color(0xFF0D082B)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFFBF6EF), Color(0xFFF0E6D6)],
         ),
       ),
       child: Stack(
         children: [
           Positioned(
             top: -80,
-            right: -30,
-            child: _glowCircle(const Color(0xFF72E8D4).withValues(alpha: 0.2)),
+            right: -40,
+            child: _warmCircle(const Color(0xFFC17D3C).withOpacity(0.10)),
           ),
           Positioned(
-            bottom: -90,
+            bottom: -100,
             left: -60,
-            child: _glowCircle(const Color(0xFFB078FF).withValues(alpha: 0.22)),
+            child: _warmCircle(const Color(0xFF8B6B4A).withOpacity(0.08)),
+          ),
+          Positioned(
+            top: 200,
+            left: -30,
+            child: _warmCircle(
+              const Color(0xFFC17D3C).withOpacity(0.06),
+              size: 180,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _glowCircle(Color color) {
+  Widget _warmCircle(Color color, {double size = 260}) {
     return Container(
-      width: 260,
-      height: 260,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(colors: [color, Colors.transparent]),

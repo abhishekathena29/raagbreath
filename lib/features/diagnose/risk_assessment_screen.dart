@@ -39,7 +39,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
     {
       'question': 'Do you exercise regularly?',
       'options': [
-        {'text': 'Yes, >= 3 times/week', 'deduction': -10}, // Bonus!
+        {'text': 'Yes, >= 3 times/week', 'deduction': -10},
         {'text': 'Sometimes', 'deduction': 0},
         {'text': 'Rarely', 'deduction': 10},
       ],
@@ -57,15 +57,15 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
           'Risk Assessment',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: SafeArea(
         child: Padding(
@@ -86,7 +86,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
         Text(
           'Factor ${_currentStep + 1} of ${_factors.length}',
           style: const TextStyle(
-            color: Color(0xFF5AD8FE),
+            color: Color(0xFFC17D3C),
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -95,7 +95,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
         Text(
           q['question'] as String,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 24,
             fontWeight: FontWeight.w700,
           ),
@@ -108,17 +108,18 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1A143C),
-                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.white,
+                  foregroundColor: const Color(0xFF3D2B1F),
                   padding: const EdgeInsets.symmetric(
                     vertical: 20,
                     horizontal: 24,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
-                    side: const BorderSide(color: Color(0xFF2D2553)),
+                    side: const BorderSide(color: Color(0xFFE8DDD0)),
                   ),
                   alignment: Alignment.centerLeft,
+                  elevation: 0,
                 ),
                 onPressed: () => _answerFactor(opt['deduction'] as int),
                 child: Text(
@@ -138,7 +139,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
     Color scoreColor;
 
     if (_healthScore >= 80) {
-      scoreColor = const Color(0xFF72E8D4);
+      scoreColor = const Color(0xFF5B8A6E);
       message = 'Your lung health score is excellent. Keep up the good habits!';
     } else if (_healthScore >= 50) {
       scoreColor = Colors.orangeAccent;
@@ -162,7 +163,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
               child: CircularProgressIndicator(
                 value: _healthScore / 100,
                 strokeWidth: 12,
-                backgroundColor: const Color(0xFF1A143C),
+                backgroundColor: const Color(0xFFE8DDD0),
                 valueColor: AlwaysStoppedAnimation<Color>(scoreColor),
               ),
             ),
@@ -180,7 +181,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
         const Text(
           'Your Lung Health Score',
           style: TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -190,7 +191,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
           message,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            color: Color(0xFFB7B0D7),
+            color: Color(0xFF8C7B6B),
             fontSize: 16,
             height: 1.5,
           ),
@@ -200,8 +201,8 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen> {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF5AD8FE),
-              foregroundColor: const Color(0xFF0D082B),
+              backgroundColor: const Color(0xFFC17D3C),
+              foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),

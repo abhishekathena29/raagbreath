@@ -70,7 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       body: Stack(
         children: [
           const _AuthBackground(),
@@ -81,10 +81,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
+                  // Header icon
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFC17D3C).withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Icon(
+                      Icons.spa,
+                      color: Color(0xFFC17D3C),
+                      size: 32,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   const Text(
                     'Tell us about you',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color(0xFF3D2B1F),
                       fontSize: 28,
                       fontWeight: FontWeight.w800,
                     ),
@@ -92,7 +106,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const SizedBox(height: 6),
                   const Text(
                     'We use this to estimate your lung capacity',
-                    style: TextStyle(color: Color(0xFFB7B0D7), fontSize: 15),
+                    style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
                   ),
                   const SizedBox(height: 32),
 
@@ -130,7 +144,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                   const Text(
                     "Gender",
-                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                    style: TextStyle(
+                      color: Color(0xFF8C7B6B),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   _buildDropdown<Gender>(
@@ -142,7 +160,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const SizedBox(height: 24),
                   const Text(
                     "Activity Level",
-                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                    style: TextStyle(
+                      color: Color(0xFF8C7B6B),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   _buildDropdown<ActivityLevel>(
@@ -154,18 +176,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const SizedBox(height: 48),
 
                   if (_isLoading)
-                    const Center(child: CircularProgressIndicator())
+                    const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xFFC17D3C),
+                      ),
+                    )
                   else
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF72E8D4),
-                          foregroundColor: const Color(0xFF0D082B),
+                          backgroundColor: const Color(0xFFC17D3C),
+                          foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
+                          elevation: 2,
+                          shadowColor: const Color(0xFFC17D3C).withOpacity(0.3),
                         ),
                         onPressed: _saveBio,
                         child: const Text(
@@ -194,17 +222,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF17123A),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF2D2553)),
+        border: Border.all(color: const Color(0xFFE8DDD0)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<T>(
           value: value,
           isExpanded: true,
-          dropdownColor: const Color(0xFF1A143C),
-          icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF72E8D4)),
-          style: const TextStyle(color: Colors.white),
+          dropdownColor: Colors.white,
+          icon: const Icon(Icons.arrow_drop_down, color: Color(0xFFC17D3C)),
+          style: const TextStyle(color: Color(0xFF3D2B1F)),
           items: items.map((item) {
             return DropdownMenuItem(
               value: item,
@@ -236,21 +264,21 @@ class _InputField extends StatelessWidget {
     return TextField(
       controller: controller,
       keyboardType: keyboardType,
-      cursorColor: const Color(0xFF72E8D4),
-      style: const TextStyle(color: Colors.white),
+      cursorColor: const Color(0xFFC17D3C),
+      style: const TextStyle(color: Color(0xFF3D2B1F)),
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: const Color(0xFF72E8D4)),
+        prefixIcon: Icon(icon, color: const Color(0xFFC17D3C)),
         filled: true,
-        fillColor: const Color(0xFF17123A),
-        labelStyle: const TextStyle(color: Color(0xFFB7B0D7)),
+        fillColor: Colors.white,
+        labelStyle: const TextStyle(color: Color(0xFF8C7B6B)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Color(0xFF2D2553)),
+          borderSide: const BorderSide(color: Color(0xFFE8DDD0)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Color(0xFF72E8D4)),
+          borderSide: const BorderSide(color: Color(0xFFC17D3C), width: 1.5),
         ),
       ),
     );
@@ -265,29 +293,29 @@ class _AuthBackground extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF3B1F5D), Color(0xFF0D082B)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFFBF6EF), Color(0xFFF0E6D6)],
         ),
       ),
       child: Stack(
         children: [
           Positioned(
             top: -80,
-            right: -30,
-            child: _glowCircle(const Color(0xFF72E8D4).withValues(alpha: 0.2)),
+            right: -40,
+            child: _warmCircle(const Color(0xFFC17D3C).withOpacity(0.10)),
           ),
           Positioned(
-            bottom: -90,
+            bottom: -100,
             left: -60,
-            child: _glowCircle(const Color(0xFFB078FF).withValues(alpha: 0.22)),
+            child: _warmCircle(const Color(0xFF8B6B4A).withOpacity(0.08)),
           ),
         ],
       ),
     );
   }
 
-  Widget _glowCircle(Color color) {
+  Widget _warmCircle(Color color) {
     return Container(
       width: 260,
       height: 260,

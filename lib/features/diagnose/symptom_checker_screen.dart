@@ -56,15 +56,15 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0D082B),
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
           'Symptom Checker',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: SafeArea(
         child: Padding(
@@ -85,7 +85,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
         Text(
           'Question ${_currentStep + 1} of ${_questions.length}',
           style: const TextStyle(
-            color: Color(0xFF72E8D4),
+            color: Color(0xFFC17D3C),
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -94,7 +94,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
         Text(
           q['question'] as String,
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 24,
             fontWeight: FontWeight.w700,
           ),
@@ -107,17 +107,18 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1A143C),
-                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.white,
+                  foregroundColor: const Color(0xFF3D2B1F),
                   padding: const EdgeInsets.symmetric(
                     vertical: 20,
                     horizontal: 24,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
-                    side: const BorderSide(color: Color(0xFF2D2553)),
+                    side: const BorderSide(color: Color(0xFFE8DDD0)),
                   ),
                   alignment: Alignment.centerLeft,
+                  elevation: 0,
                 ),
                 onPressed: () => _answerQuestion(opt['score'] as int),
                 child: Text(
@@ -149,7 +150,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
           'You have some symptoms that could be related to a lung problem. Consider tracking them and consulting a doctor if they persist.';
     } else {
       riskLevel = 'Low Risk';
-      riskColor = const Color(0xFF72E8D4);
+      riskColor = const Color(0xFF5B8A6E);
       advice =
           'Your symptoms are mild. Maintain healthy habits, but if anything worsens, consult a doctor.';
     }
@@ -157,12 +158,12 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(Icons.analytics, size: 80, color: Color(0xFFB0A3FF)),
+        const Icon(Icons.analytics, size: 80, color: Color(0xFFC17D3C)),
         const SizedBox(height: 24),
         const Text(
           'Assessment Complete',
           style: TextStyle(
-            color: Colors.white,
+            color: Color(0xFF3D2B1F),
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -171,9 +172,9 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: riskColor.withOpacity(0.1),
+            color: riskColor.withOpacity(0.08),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: riskColor),
+            border: Border.all(color: riskColor.withOpacity(0.5)),
           ),
           child: Column(
             children: [
@@ -190,7 +191,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
                 advice,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  color: Color(0xFFB7B0D7),
+                  color: Color(0xFF8C7B6B),
                   fontSize: 15,
                   height: 1.5,
                 ),
@@ -203,8 +204,8 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen> {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF72E8D4),
-              foregroundColor: const Color(0xFF0D082B),
+              backgroundColor: const Color(0xFFC17D3C),
+              foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),

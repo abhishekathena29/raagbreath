@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:raag_breath/features/treatment/medication_awareness_screen.dart';
 import 'package:raag_breath/features/treatment/doctor_connect_screen.dart';
+import 'package:raag_breath/features/treatment/medication_awareness_screen.dart';
 import 'package:raag_breath/features/treatment/school_action_screen.dart';
 import 'package:raag_breath/features/meditation/meditation.dart';
 import 'package:raag_breath/features/music/music.dart';
@@ -11,20 +11,18 @@ class TreatmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
-        title: Text(
-          'Treatment & Action',
+        title: const Text(
+          'Treatment',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Color(0xFF3D2B1F),
           ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
+        iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
       ),
       body: ListView(
         padding: const EdgeInsets.all(24),
@@ -32,17 +30,50 @@ class TreatmentScreen extends StatelessWidget {
           const Text(
             'Take Action',
             style: TextStyle(
-              color: Color(0xFFB0A3FF),
+              color: Color(0xFFC17D3C),
               fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 16),
           _TreatmentCard(
+            title: 'Meditation & Breathing',
+            subtitle: 'Pranayama, Dhyana, and Yoga practices',
+            icon: Icons.self_improvement,
+            accentColor: const Color(0xFF8B6B4A),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const MeditationPage()),
+            ),
+          ),
+          const SizedBox(height: 16),
+          _TreatmentCard(
+            title: 'Music Therapy',
+            subtitle: 'Raag practice and breathwork with music',
+            icon: Icons.music_note,
+            accentColor: const Color(0xFF7B5EA7),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const MusicPage()),
+            ),
+          ),
+          const SizedBox(height: 16),
+          _TreatmentCard(
+            title: 'Doctor Connect',
+            subtitle: 'Find nearby doctors and teleconsultation',
+            icon: Icons.medical_services,
+            accentColor: const Color(0xFF4A7FA8),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const DoctorConnectScreen()),
+            ),
+          ),
+          const SizedBox(height: 16),
+          _TreatmentCard(
             title: 'Medication Awareness',
-            subtitle: 'Learn about inhalers and other treatments',
+            subtitle: 'Learn about inhalers and devices',
             icon: Icons.medication,
-            accentColor: const Color(0xFF72E8D4),
+            accentColor: const Color(0xFFC17D3C),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -52,43 +83,10 @@ class TreatmentScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _TreatmentCard(
-            title: 'Doctor Connect',
-            subtitle: 'Find healthcare professionals and clinics',
-            icon: Icons.medical_services,
-            accentColor: const Color(0xFF5AD8FE),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const DoctorConnectScreen()),
-            ),
-          ),
-          const SizedBox(height: 16),
-          _TreatmentCard(
-            title: 'Meditation & Breathing',
-            subtitle: 'Strengthen lungs and improve oxygen intake',
-            icon: Icons.self_improvement,
-            accentColor: const Color(0xFFB0A3FF),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const MeditationPage()),
-            ),
-          ),
-          const SizedBox(height: 16),
-          _TreatmentCard(
-            title: 'Music Therapy',
-            subtitle: 'Listen to ragas that enhance your breathing',
-            icon: Icons.music_note,
-            accentColor: const Color(0xFF9D4EDD),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const MusicPage()),
-            ),
-          ),
-          const SizedBox(height: 16),
-          _TreatmentCard(
             title: 'School Action Kit',
-            subtitle: 'Resources for teachers and school staff',
+            subtitle: 'Support for students with respiratory conditions',
             icon: Icons.school,
-            accentColor: Colors.orangeAccent,
+            accentColor: const Color(0xFF5B8A6E),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const SchoolActionScreen()),
@@ -122,18 +120,23 @@ class _TreatmentCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-          ),
+          border: Border.all(color: const Color(0xFFE8DDD0)),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF3D2B1F).withOpacity(0.04),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: accentColor.withOpacity(0.2),
+                color: accentColor.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Icon(icon, color: accentColor, size: 28),
@@ -145,8 +148,8 @@ class _TreatmentCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface,
+                    style: const TextStyle(
+                      color: Color(0xFF3D2B1F),
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),
@@ -154,12 +157,9 @@ class _TreatmentCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withOpacity(0.6),
+                    style: const TextStyle(
+                      color: Color(0xFF8C7B6B),
                       fontSize: 13,
-                      height: 1.3,
                     ),
                   ),
                 ],
