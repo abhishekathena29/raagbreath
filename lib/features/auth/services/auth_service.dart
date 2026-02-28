@@ -50,6 +50,18 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  Future<User?> signInWithPhoneCredential(
+    PhoneAuthCredential credential,
+  ) async {
+    try {
+      final result = await _auth.signInWithCredential(credential);
+      return result.user;
+    } catch (e) {
+      debugPrint('Phone SignIn Error: $e');
+      rethrow;
+    }
+  }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }

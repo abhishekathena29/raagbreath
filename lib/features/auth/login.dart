@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:raag_breath/core/l10n/app_strings.dart';
+import 'package:raag_breath/features/auth/phone_login.dart';
 import 'package:raag_breath/features/auth/services/auth_service.dart';
-import 'package:raag_breath/features/navigation/main_shell.dart';
 import 'signup.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,11 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => _isLoading = true);
     try {
       final authService = Provider.of<AuthService>(context, listen: false);
-      final user = await authService.signInAsGuest();
-
-      if (user != null && mounted) {
-        // AuthGate handles navigation automatically
-      }
+      await authService.signInAsGuest();
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
@@ -40,19 +37,15 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => _isLoading = true);
     try {
       final authService = Provider.of<AuthService>(context, listen: false);
-      final user = await authService.signIn(
+      await authService.signIn(
         _emailController.text.trim(),
         _passwordController.text.trim(),
       );
-
-      if (user != null && mounted) {
-        // AuthGate handles navigation automatically
-      }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Login Failed: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${context.strings.loginFailed}: $e')),
+        );
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -61,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.strings;
     return Scaffold(
       backgroundColor: const Color(0xFFFBF6EF),
       body: Stack(
@@ -73,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 40),
-                  // Logo / App name
+                  // Logo
                   Row(
                     children: [
                       Container(
@@ -89,9 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      const Text(
-                        'Raag Breath',
-                        style: TextStyle(
+                      Text(
+                        s.appName,
+                        style: const TextStyle(
                           color: Color(0xFF3D2B1F),
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
@@ -100,29 +94,32 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   const SizedBox(height: 40),
-                  const Text(
-                    'Welcome back',
-                    style: TextStyle(
+                  Text(
+                    s.welcomeBackHeading,
+                    style: const TextStyle(
                       color: Color(0xFF3D2B1F),
                       fontSize: 30,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                   const SizedBox(height: 6),
-                  const Text(
-                    'Sign in to continue your calm',
-                    style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
+                  Text(
+                    s.signInSubtitle,
+                    style: const TextStyle(
+                      color: Color(0xFF8C7B6B),
+                      fontSize: 15,
+                    ),
                   ),
                   const SizedBox(height: 32),
                   _InputField(
-                    label: 'Email',
+                    label: s.email,
                     icon: Icons.mail_outline,
                     controller: _emailController,
                     obscure: false,
                   ),
                   const SizedBox(height: 16),
                   _InputField(
-                    label: 'Password',
+                    label: s.password,
                     icon: Icons.lock_outline,
                     controller: _passwordController,
                     obscure: true,
@@ -137,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                   else
                     Column(
                       children: [
+                        // Email login
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -153,9 +151,9 @@ class _LoginPageState extends State<LoginPage> {
                               ).withOpacity(0.3),
                             ),
                             onPressed: _handleLogin,
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(
+                            child: Text(
+                              s.login,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
                               ),
@@ -163,6 +161,36 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const SizedBox(height: 12),
+                        // Phone login
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF3949AB),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              elevation: 0,
+                            ),
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PhoneLoginPage(),
+                              ),
+                            ),
+                            child: Text(
+                              s.loginWithPhone,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        // Guest
                         SizedBox(
                           width: double.infinity,
                           child: OutlinedButton(
@@ -178,11 +206,11 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             onPressed: _handleGuestLogin,
-                            child: const Text(
-                              'Skip Login (Guest)',
-                              style: TextStyle(
+                            child: Text(
+                              s.skipLogin,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w700,
-                                fontSize: 16,
+                                fontSize: 15,
                               ),
                             ),
                           ),
@@ -193,21 +221,17 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Don't have an account?",
-                        style: TextStyle(color: Color(0xFF8C7B6B)),
+                      Text(
+                        s.noAccount,
+                        style: const TextStyle(color: Color(0xFF8C7B6B)),
                       ),
                       TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => const SignupPage(),
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => const SignupPage()),
+                        ),
+                        child: Text(
+                          s.signUp,
+                          style: const TextStyle(
                             color: Color(0xFFC17D3C),
                             fontWeight: FontWeight.w700,
                           ),
@@ -232,7 +256,6 @@ class _InputField extends StatelessWidget {
     required this.controller,
     required this.obscure,
   });
-
   final String label;
   final IconData icon;
   final TextEditingController controller;
@@ -302,14 +325,12 @@ class _AuthBackground extends StatelessWidget {
     );
   }
 
-  Widget _warmCircle(Color color, {double size = 260}) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: RadialGradient(colors: [color, Colors.transparent]),
-      ),
-    );
-  }
+  Widget _warmCircle(Color color, {double size = 260}) => Container(
+    width: size,
+    height: size,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      gradient: RadialGradient(colors: [color, Colors.transparent]),
+    ),
+  );
 }

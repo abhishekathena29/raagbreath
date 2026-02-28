@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:raag_breath/core/l10n/app_strings.dart';
+import 'package:raag_breath/core/l10n/language_provider.dart';
 import 'package:raag_breath/core/utils/lung_capacity_calculator.dart';
 import 'package:raag_breath/features/auth/models/user_model.dart';
 import 'package:raag_breath/features/auth/onboarding_screen.dart';
@@ -380,9 +382,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Profile',
-                            style: TextStyle(
+                          Text(
+                            context.strings.profile,
+                            style: const TextStyle(
                               color: Color(0xFF3D2B1F),
                               fontSize: 26,
                               fontWeight: FontWeight.w700,
@@ -390,6 +392,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           Row(
                             children: [
+                              // Language toggle
+                              _LanguageToggle(),
+                              const SizedBox(width: 2),
+                              // Dark mode
                               IconButton(
                                 icon: Icon(
                                   Provider.of<ThemeProvider>(context).isDarkMode
@@ -405,6 +411,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   provider.toggleTheme(!provider.isDarkMode);
                                 },
                               ),
+                              // Edit profile
                               IconButton(
                                 icon: const Icon(
                                   Icons.edit,
@@ -425,16 +432,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Hello, ${userModel.name}',
+                        '${context.strings.hello} ${userModel.name}',
                         style: const TextStyle(
                           color: Color(0xFF3D2B1F),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
-                        'Keep breathing, keep growing.',
-                        style: TextStyle(
+                      Text(
+                        context.strings.keepBreathing,
+                        style: const TextStyle(
                           color: Color(0xFF8C7B6B),
                           fontSize: 15,
                         ),
@@ -446,12 +453,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const SizedBox(height: 32),
                       _Section(
-                        title: 'Today\'s Sadhana',
+                        title: context.strings.todaysSadhana,
                         items: ProfilePage._todayPlan,
                       ),
                       const SizedBox(height: 18),
                       _Section(
-                        title: 'Saved Routines',
+                        title: context.strings.savedRoutines,
                         items: ProfilePage._savedRoutines,
                       ),
                       const SizedBox(height: 32),
@@ -473,9 +480,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             elevation: 0,
                           ),
                           icon: const Icon(Icons.logout),
-                          label: const Text(
-                            'Sign Out',
-                            style: TextStyle(
+                          label: Text(
+                            context.strings.signOut,
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -637,6 +644,47 @@ class _SectionBackground extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(colors: [color, Colors.transparent]),
+      ),
+    );
+  }
+}
+
+class _LanguageToggle extends StatelessWidget {
+  const _LanguageToggle();
+
+  @override
+  Widget build(BuildContext context) {
+    final langProvider = Provider.of<LanguageProvider>(context);
+    final isHindi = langProvider.isHindi;
+
+    return GestureDetector(
+      onTap: () => langProvider.switchLanguage(isHindi ? 'en' : 'hi'),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: const Color(0xFFC17D3C).withOpacity(0.12),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: const Color(0xFFC17D3C).withOpacity(0.3)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              isHindi ? '🇮🇳' : '🇬🇧',
+              style: const TextStyle(fontSize: 14),
+            ),
+            const SizedBox(width: 5),
+            Text(
+              isHindi ? 'हिं' : 'EN',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+                color: Color(0xFFC17D3C),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
