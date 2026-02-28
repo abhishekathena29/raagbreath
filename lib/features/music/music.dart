@@ -49,42 +49,44 @@ class MusicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const _SectionBackground(),
-        SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Music',
-                  style: TextStyle(
-                    color: Color(0xFF3D2B1F),
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
+    return Scaffold(
+      body: Stack(
+        children: [
+          const _SectionBackground(),
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Music',
+                    style: TextStyle(
+                      color: Color(0xFF3D2B1F),
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Indian classical practice for breath, raga, and rhythm.',
-                  style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
-                ),
-                const SizedBox(height: 20),
-                _RaagSection(
-                  title: 'Raag Practice',
-                  items: PracticeData.raagPractice,
-                ),
-                const SizedBox(height: 18),
-                _Section(title: 'Taal and Layakari', items: _taalPractice),
-                const SizedBox(height: 18),
-                _Section(title: 'Breath + Nada', items: _breathTone),
-              ],
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Indian classical practice for breath, raga, and rhythm.',
+                    style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
+                  ),
+                  const SizedBox(height: 20),
+                  _RaagSection(
+                    title: 'Raag Practice',
+                    items: PracticeData.raagPractice,
+                  ),
+                  const SizedBox(height: 18),
+                  _Section(title: 'Taal and Layakari', items: _taalPractice),
+                  const SizedBox(height: 18),
+                  _Section(title: 'Breath + Nada', items: _breathTone),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -49,42 +49,44 @@ class MeditationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const _SectionBackground(),
-        SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Meditation',
-                  style: TextStyle(
-                    color: Color(0xFF3D2B1F),
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
+    return Scaffold(
+      body: Stack(
+        children: [
+          const _SectionBackground(),
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Meditation',
+                    style: TextStyle(
+                      color: Color(0xFF3D2B1F),
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6),
-                const Text(
-                  'Guided journeys for stillness and focus.',
-                  style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
-                ),
-                const SizedBox(height: 24),
-                _PranayamaSection(
-                  title: 'Pranayama Breaths',
-                  items: PracticeData.pranayama,
-                ),
-                const SizedBox(height: 18),
-                _Section(title: 'Dhyana Practices', items: _meditations),
-                const SizedBox(height: 18),
-                _Section(title: 'Yoga Foundations', items: _yoga),
-              ],
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Guided journeys for stillness and focus.',
+                    style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
+                  ),
+                  const SizedBox(height: 24),
+                  _PranayamaSection(
+                    title: 'Pranayama Breaths',
+                    items: PracticeData.pranayama,
+                  ),
+                  const SizedBox(height: 18),
+                  _Section(title: 'Dhyana Practices', items: _meditations),
+                  const SizedBox(height: 18),
+                  _Section(title: 'Yoga Foundations', items: _yoga),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
