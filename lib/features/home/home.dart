@@ -33,24 +33,36 @@ class HomePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'Hello! 👋',
-                          style: TextStyle(
-                            color: Color(0xFF8C7B6B),
-                            fontSize: 14,
-                          ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/logo.png',
+                          width: 44,
+                          height: 44,
+                          fit: BoxFit.contain,
                         ),
-                        SizedBox(height: 2),
-                        Text(
-                          'Welcome Back',
-                          style: TextStyle(
-                            color: Color(0xFF3D2B1F),
-                            fontSize: 26,
-                            fontWeight: FontWeight.w800,
-                          ),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Prana',
+                              style: TextStyle(
+                                color: Color(0xFF3D2B1F),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            Text(
+                              'Raag Breath',
+                              style: TextStyle(
+                                color: Color(0xFFC17D3C),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.4,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

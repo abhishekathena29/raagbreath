@@ -81,18 +81,39 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  // Header icon
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFC17D3C).withOpacity(0.12),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: const Icon(
-                      Icons.spa,
-                      color: Color(0xFFC17D3C),
-                      size: 32,
-                    ),
+                  // Logo + Brand
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/logo.png',
+                        width: 52,
+                        height: 52,
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Prana',
+                            style: TextStyle(
+                              color: Color(0xFF3D2B1F),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          Text(
+                            'Raag Breath',
+                            style: TextStyle(
+                              color: Color(0xFFC17D3C),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   const Text(

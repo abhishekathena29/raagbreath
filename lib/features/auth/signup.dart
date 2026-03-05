@@ -85,7 +85,42 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
+                  // Logo + Brand
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/logo.png',
+                        width: 48,
+                        height: 48,
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Prana',
+                            style: TextStyle(
+                              color: Color(0xFF3D2B1F),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          Text(
+                            'Raag Breath',
+                            style: TextStyle(
+                              color: Color(0xFFC17D3C),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
                   const Text(
                     'Create account',
                     style: TextStyle(
@@ -99,6 +134,7 @@ class _SignupPageState extends State<SignupPage> {
                     'Join us with your email',
                     style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
                   ),
+
                   const SizedBox(height: 28),
                   _InputField(
                     label: 'Full Name',

@@ -8,7 +8,7 @@ class AppStrings {
 
   static const _en = {
     // General
-    'app_name': 'Raag Breath',
+    'app_name': 'Prana',
     'hello': 'Hello! 👋',
     'welcome_back': 'Welcome Back',
     'profile': 'Profile',
@@ -86,7 +86,7 @@ class AppStrings {
 
   static const _hi = {
     // General
-    'app_name': 'राग ब्रेथ',
+    'app_name': 'प्राण',
     'hello': 'नमस्ते! 👋',
     'welcome_back': 'वापसी पर स्वागत है',
     'profile': 'प्रोफ़ाइल',

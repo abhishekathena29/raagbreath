@@ -67,29 +67,37 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 40),
-                  // Logo
+                  // Logo + Brand
                   Row(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFC17D3C).withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: const Icon(
-                          Icons.air,
-                          color: Color(0xFFC17D3C),
-                          size: 28,
-                        ),
+                      Image.asset(
+                        'assets/logo.png',
+                        width: 52,
+                        height: 52,
+                        fit: BoxFit.contain,
                       ),
                       const SizedBox(width: 12),
-                      Text(
-                        s.appName,
-                        style: const TextStyle(
-                          color: Color(0xFF3D2B1F),
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Prana',
+                            style: TextStyle(
+                              color: Color(0xFF3D2B1F),
+                              fontSize: 22,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          Text(
+                            'Raag Breath',
+                            style: TextStyle(
+                              color: Color(0xFFC17D3C),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

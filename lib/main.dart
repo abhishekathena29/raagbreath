@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     final languageProvider = Provider.of<LanguageProvider>(context);
 
     return MaterialApp(
-      title: 'Raag Breath',
+      title: 'Prana',
       debugShowCheckedModeBanner: false,
       themeMode: themeProvider.themeMode,
       locale: languageProvider.locale,
