@@ -156,53 +156,22 @@ class _SignupPageState extends State<SignupPage> {
                     controller: _passwordController,
                     obscure: true,
                   ),
-                  const SizedBox(height: 16),
-                  DropdownButtonFormField<UserType>(
-                    value: _selectedUserType,
-                    decoration: InputDecoration(
-                      labelText: 'Role',
-                      prefixIcon: const Icon(
-                        Icons.badge_outlined,
-                        color: Color(0xFFC17D3C),
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelStyle: const TextStyle(color: Color(0xFF8C7B6B)),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(color: Color(0xFFE8DDD0)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(
-                          color: Color(0xFFC17D3C),
-                          width: 1.5,
-                        ),
-                      ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'I am a:',
+                    style: TextStyle(
+                      color: Color(0xFF3D2B1F),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
                     ),
-                    dropdownColor: Colors.white,
-                    style: const TextStyle(color: Color(0xFF3D2B1F)),
-                    items: UserType.values.map((type) {
-                      String label = type.name;
-                      if (type == UserType.schoolAdmin)
-                        label = 'School Administrator';
-                      if (type == UserType.ngo) label = 'NGO';
-                      return DropdownMenuItem(
-                        value: type,
-                        child: Text(
-                          label.substring(0, 1).toUpperCase() +
-                              label.substring(1),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (UserType? newValue) {
-                      if (newValue != null) {
-                        setState(() {
-                          _selectedUserType = newValue;
-                        });
-                      }
-                    },
                   ),
+                  const SizedBox(height: 12),
+                  _UserTypeSelector(
+                    selected: _selectedUserType,
+                    onChanged: (type) =>
+                        setState(() => _selectedUserType = type),
+                  ),
+
                   const SizedBox(height: 28),
                   if (_isLoading)
                     const Center(
@@ -340,6 +309,208 @@ class _AuthBackground extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(colors: [color, Colors.transparent]),
+      ),
+    );
+  }
+}
+
+// ─── User Type Selector ───────────────────────────────────────────────────────
+
+class _UserTypeConfig {
+  final UserType type;
+  final String label;
+  final IconData icon;
+  final Color color;
+  const _UserTypeConfig(this.type, this.label, this.icon, this.color);
+}
+
+class _UserTypeSelector extends StatelessWidget {
+  final UserType selected;
+  final ValueChanged<UserType> onChanged;
+
+  const _UserTypeSelector({required this.selected, required this.onChanged});
+
+  static const _types = [
+    _UserTypeConfig(
+      UserType.student,
+      'Student',
+      Icons.school_rounded,
+      Color(0xFF1565C0),
+    ),
+    _UserTypeConfig(
+      UserType.teacher,
+      'Teacher',
+      Icons.menu_book_rounded,
+      Color(0xFF00695C),
+    ),
+    _UserTypeConfig(
+      UserType.parent,
+      'Parent',
+      Icons.family_restroom_rounded,
+      Color(0xFF6A1B9A),
+    ),
+    _UserTypeConfig(
+      UserType.schoolAdmin,
+      'School Admin',
+      Icons.admin_panel_settings_rounded,
+      Color(0xFFE65100),
+    ),
+    _UserTypeConfig(
+      UserType.ngo,
+      'NGO',
+      Icons.people_alt_rounded,
+      Color(0xFF880E4F),
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    // Split into rows: first row 3, second row 2
+    final row1 = _types.sublist(0, 3);
+    final row2 = _types.sublist(3);
+
+    return Column(
+      children: [
+        Row(
+          children: row1
+              .map(
+                (cfg) => Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: _TypeCard(
+                      cfg: cfg,
+                      isSelected: selected == cfg.type,
+                      onTap: () => onChanged(cfg.type),
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            const Spacer(flex: 1),
+            ...row2.map(
+              (cfg) => Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: _TypeCard(
+                    cfg: cfg,
+                    isSelected: selected == cfg.type,
+                    onTap: () => onChanged(cfg.type),
+                  ),
+                ),
+              ),
+            ),
+            const Spacer(flex: 1),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _TypeCard extends StatefulWidget {
+  final _UserTypeConfig cfg;
+  final bool isSelected;
+  final VoidCallback onTap;
+  const _TypeCard({
+    required this.cfg,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  State<_TypeCard> createState() => _TypeCardState();
+}
+
+class _TypeCardState extends State<_TypeCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _ctrl;
+  late Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+    );
+    _scale = Tween(
+      begin: 1.0,
+      end: 0.94,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut));
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cfg = widget.cfg;
+    final sel = widget.isSelected;
+    return GestureDetector(
+      onTapDown: (_) => _ctrl.forward(),
+      onTapUp: (_) {
+        _ctrl.reverse();
+        widget.onTap();
+      },
+      onTapCancel: () => _ctrl.reverse(),
+      child: ScaleTransition(
+        scale: _scale,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
+          decoration: BoxDecoration(
+            color: sel ? cfg.color.withOpacity(0.08) : Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: sel ? cfg.color : const Color(0xFFE8DDD0),
+              width: sel ? 2 : 1.5,
+            ),
+            boxShadow: sel
+                ? [
+                    BoxShadow(
+                      color: cfg.color.withOpacity(0.15),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
+                      blurRadius: 6,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                cfg.icon,
+                color: sel ? cfg.color : const Color(0xFF8C7B6B),
+                size: 28,
+              ),
+              const SizedBox(height: 6),
+              Text(
+                cfg.label,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: sel ? FontWeight.w700 : FontWeight.w500,
+                  color: sel ? cfg.color : const Color(0xFF3D2B1F),
+                  height: 1.2,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
