@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:raag_breath/core/l10n/language_provider.dart';
 import 'package:raag_breath/features/auth/models/user_model.dart';
 import 'package:raag_breath/features/auth/services/auth_service.dart';
 import 'package:raag_breath/features/auth/services/firestore_service.dart';
@@ -24,6 +25,10 @@ class _SignupPageState extends State<SignupPage> {
 
     try {
       final authService = Provider.of<AuthService>(context, listen: false);
+      final languageProvider = Provider.of<LanguageProvider>(
+        context,
+        listen: false,
+      );
       final firestoreService = FirestoreService();
 
       // 1. Create Auth User
@@ -38,6 +43,7 @@ class _SignupPageState extends State<SignupPage> {
           uid: user.uid,
           email: user.email!,
           name: _nameController.text.trim(),
+          preferredLanguageCode: languageProvider.locale.languageCode,
           age: 0, // Placeholder
           heightCm: 0, // Placeholder
           weightKg: 0, // Placeholder
@@ -90,7 +96,7 @@ class _SignupPageState extends State<SignupPage> {
                   Row(
                     children: [
                       Image.asset(
-                        'assets/logo.png',
+                        'assets/prana.png',
                         width: 48,
                         height: 48,
                         fit: BoxFit.contain,

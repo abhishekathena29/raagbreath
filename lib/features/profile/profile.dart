@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:raag_breath/core/l10n/app_strings.dart';
 import 'package:raag_breath/core/l10n/language_provider.dart';
 import 'package:raag_breath/core/utils/lung_capacity_calculator.dart';
+import 'package:raag_breath/features/auth/auth_gate.dart';
 import 'package:raag_breath/features/auth/models/user_model.dart';
 import 'package:raag_breath/features/auth/onboarding_screen.dart';
 import 'package:raag_breath/features/auth/services/auth_service.dart';
@@ -315,24 +316,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = authService.user;
 
     if (user == null) {
-      return Scaffold(
-        backgroundColor: const Color(0xFFFBF6EF),
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
-        ),
-        body: const Center(
-          child: Text(
-            "Please login to view profile",
-            style: TextStyle(
-              color: Color(0xFF3D2B1F),
-              decoration: TextDecoration.none,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      );
+      return const AuthGate();
     }
 
     return StreamBuilder<UserModel?>(
@@ -487,7 +471,16 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onPressed: () => authService.signOut(),
+                          onPressed: () async {
+                            await authService.signOut();
+                            if (!context.mounted) return;
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (_) => const AuthGate(),
+                              ),
+                              (route) => false,
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(height: 32),

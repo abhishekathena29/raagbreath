@@ -191,7 +191,7 @@ class _GreetingBanner extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(
-        24,
+        12,
         MediaQuery.of(context).padding.top + 24,
         24,
         28,
@@ -207,6 +207,7 @@ class _GreetingBanner extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Image.asset('assets/prana.png', height: 80, fit: BoxFit.contain),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,7 +220,7 @@ class _GreetingBanner extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 8),
                 Text(
                   name,
                   style: const TextStyle(
@@ -402,6 +403,13 @@ class _ActionItem {
 class _QuickActionsGrid extends StatelessWidget {
   static final _actions = <_ActionItem>[
     _ActionItem(
+      'Learn',
+      '📚',
+      const Color(0xFF1565C0),
+      const Color(0xFFE3F2FD),
+      (_) => const LearnScreen(),
+    ),
+    _ActionItem(
       'Diagnose',
       '🔬',
       const Color(0xFFD32F2F),
@@ -409,11 +417,11 @@ class _QuickActionsGrid extends StatelessWidget {
       (_) => const DiagnoseScreen(),
     ),
     _ActionItem(
-      'Learn',
-      '📚',
-      const Color(0xFF1565C0),
-      const Color(0xFFE3F2FD),
-      (_) => const LearnScreen(),
+      'Treatment',
+      '💊',
+      const Color(0xFFE65100),
+      const Color(0xFFFFF3E0),
+      (_) => const TreatmentScreen(),
     ),
     _ActionItem(
       'Meditation',
@@ -428,13 +436,6 @@ class _QuickActionsGrid extends StatelessWidget {
       const Color(0xFF880E4F),
       const Color(0xFFFCE4EC),
       (_) => const MusicPage(),
-    ),
-    _ActionItem(
-      'Treatment',
-      '💊',
-      const Color(0xFFE65100),
-      const Color(0xFFFFF3E0),
-      (_) => const TreatmentScreen(),
     ),
     _ActionItem(
       'AI Chat',

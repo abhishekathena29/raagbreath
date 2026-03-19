@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:raag_breath/core/l10n/language_provider.dart';
 import 'package:raag_breath/features/auth/models/user_model.dart';
 import 'package:raag_breath/features/auth/services/auth_service.dart';
 import 'package:raag_breath/features/auth/services/firestore_service.dart';
@@ -18,7 +19,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _weightController = TextEditingController();
   Gender _gender = Gender.male;
   ActivityLevel _activity = ActivityLevel.moderate;
+  String _selectedLanguageCode = 'en';
   bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _selectedLanguageCode = context
+        .read<LanguageProvider>()
+        .locale
+        .languageCode;
+  }
 
   Future<void> _saveBio() async {
     final age = int.tryParse(_ageController.text);
@@ -38,6 +49,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     try {
       final user = Provider.of<AuthService>(context, listen: false).user;
+      final languageProvider = Provider.of<LanguageProvider>(
+        context,
+        listen: false,
+      );
       if (user != null) {
         // Update user bio in Firestore
         await FirestoreService().updateUserBio(
@@ -47,7 +62,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           weightKg: weight,
           gender: _gender,
           activityLevel: _activity,
+          preferredLanguageCode: _selectedLanguageCode,
         );
+        await languageProvider.switchLanguage(_selectedLanguageCode);
 
         if (mounted) {
           Navigator.of(context).pushAndRemoveUntil(
@@ -85,7 +102,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Row(
                     children: [
                       Image.asset(
-                        'assets/logo.png',
+                        'assets/prana.png',
                         width: 52,
                         height: 52,
                         fit: BoxFit.contain,
@@ -194,6 +211,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     onChanged: (v) => setState(() => _activity = v!),
                   ),
 
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Language',
+                    style: TextStyle(
+                      color: Color(0xFF8C7B6B),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildDropdown<String>(
+                    value: _selectedLanguageCode,
+                    items: const ['en', 'hi'],
+                    onChanged: (v) {
+                      if (v == null) return;
+                      setState(() => _selectedLanguageCode = v);
+                    },
+                    itemLabelBuilder: (code) =>
+                        code == 'hi' ? 'Hindi' : 'English',
+                  ),
+
                   const SizedBox(height: 48),
 
                   if (_isLoading)
@@ -239,6 +277,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     required T value,
     required List<T> items,
     required ValueChanged<T?> onChanged,
+    String Function(T item)? itemLabelBuilder,
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -257,7 +296,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           items: items.map((item) {
             return DropdownMenuItem(
               value: item,
-              child: Text(item.toString().split('.').last.toUpperCase()),
+              child: Text(
+                itemLabelBuilder?.call(item) ??
+                    item.toString().split('.').last.toUpperCase(),
+              ),
             );
           }).toList(),
           onChanged: onChanged,

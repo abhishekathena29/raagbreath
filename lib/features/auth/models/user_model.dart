@@ -8,6 +8,7 @@ class UserModel {
   final String uid;
   final String email;
   final String name;
+  final String preferredLanguageCode;
   final int age;
   final double heightCm;
   final double weightKg;
@@ -28,6 +29,7 @@ class UserModel {
     required this.uid,
     required this.email,
     required this.name,
+    this.preferredLanguageCode = 'en',
     required this.age,
     required this.heightCm,
     required this.weightKg,
@@ -46,6 +48,7 @@ class UserModel {
       'uid': uid,
       'email': email,
       'name': name,
+      'preferredLanguageCode': preferredLanguageCode,
       'age': age,
       'heightCm': heightCm,
       'weightKg': weightKg,
@@ -65,6 +68,7 @@ class UserModel {
       uid: map['uid'] ?? '',
       email: map['email'] ?? '',
       name: map['name'] ?? '',
+      preferredLanguageCode: map['preferredLanguageCode'] ?? 'en',
       age: map['age']?.toInt() ?? 0,
       heightCm: map['heightCm']?.toDouble() ?? 0.0,
       weightKg: map['weightKg']?.toDouble() ?? 0.0,

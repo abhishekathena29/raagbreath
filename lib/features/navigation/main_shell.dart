@@ -19,9 +19,9 @@ class _MainShellState extends State<MainShell> {
   late final List<Widget> _pages = const [
     HomePage(),
     LearnScreen(),
-    ChatbotScreen(),
     DiagnoseScreen(),
     TreatmentScreen(),
+    ChatbotScreen(),
   ];
 
   @override

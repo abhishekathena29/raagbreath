@@ -95,6 +95,7 @@ class FirestoreService {
     double? weightKg,
     Gender? gender,
     ActivityLevel? activityLevel,
+    String? preferredLanguageCode,
   }) async {
     if (FirebaseAuth.instance.currentUser?.isAnonymous ?? false) return;
 
@@ -104,6 +105,9 @@ class FirestoreService {
     if (weightKg != null) data['weightKg'] = weightKg;
     if (gender != null) data['gender'] = gender.index;
     if (activityLevel != null) data['activityLevel'] = activityLevel.index;
+    if (preferredLanguageCode != null) {
+      data['preferredLanguageCode'] = preferredLanguageCode;
+    }
 
     // Note: We should probably recalculate lung capacity here too in a real app logic
 
