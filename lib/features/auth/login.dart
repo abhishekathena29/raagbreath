@@ -169,35 +169,37 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const SizedBox(height: 12),
+
                         // Phone login
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF3949AB),
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              elevation: 0,
-                            ),
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const PhoneLoginPage(),
-                              ),
-                            ),
-                            child: Text(
-                              s.loginWithPhone,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
+                        // SizedBox(
+                        //   width: double.infinity,
+                        //   child: ElevatedButton(
+                        //     style: ElevatedButton.styleFrom(
+                        //       backgroundColor: const Color(0xFF3949AB),
+                        //       foregroundColor: Colors.white,
+                        //       padding: const EdgeInsets.symmetric(vertical: 16),
+                        //       shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(16),
+                        //       ),
+                        //       elevation: 0,
+                        //     ),
+                        //     onPressed: () => Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //         builder: (_) => const PhoneLoginPage(),
+                        //       ),
+                        //     ),
+                        //     child: Text(
+                        //       s.loginWithPhone,
+                        //       style: const TextStyle(
+                        //         fontWeight: FontWeight.w700,
+                        //         fontSize: 15,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 12),
+
                         // Guest
                         SizedBox(
                           width: double.infinity,

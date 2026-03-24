@@ -58,17 +58,18 @@ class TreatmentScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          _TreatmentCard(
-            title: 'Doctor Connect',
-            subtitle: 'Find nearby doctors and teleconsultation',
-            icon: Icons.medical_services,
-            accentColor: const Color(0xFF4A7FA8),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const DoctorConnectScreen()),
-            ),
-          ),
-          const SizedBox(height: 16),
+          // TODO: Disabling the Doctor Connect for now as it is not implemented yet
+          // _TreatmentCard(
+          //   title: 'Doctor Connect',
+          //   subtitle: 'Find nearby doctors and teleconsultation',
+          //   icon: Icons.medical_services,
+          //   accentColor: const Color(0xFF4A7FA8),
+          //   onTap: () => Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (_) => const DoctorConnectScreen()),
+          //   ),
+          // ),
+          // const SizedBox(height: 16),
           _TreatmentCard(
             title: 'Medication Awareness',
             subtitle: 'Learn about inhalers and devices',
