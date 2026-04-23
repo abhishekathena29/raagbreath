@@ -122,7 +122,7 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Measure Lung Capacity',
+          'Breath Timer',
           style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
       ),
@@ -132,7 +132,7 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
-              'How long can you hold your breath?',
+              'How long can you comfortably hold your breath?',
               style: TextStyle(
                 color: Color(0xFF3D2B1F),
                 fontSize: 22,
@@ -146,7 +146,7 @@ class _LungCapacityTestScreenState extends State<LungCapacityTestScreen>
               dropdownColor: Colors.white,
               style: const TextStyle(color: Color(0xFF3D2B1F)),
               decoration: InputDecoration(
-                labelText: 'Practice Context',
+                labelText: 'Session Context',
                 labelStyle: const TextStyle(color: Color(0xFF8C7B6B)),
                 filled: true,
                 fillColor: Colors.white,

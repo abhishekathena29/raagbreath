@@ -184,7 +184,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
                       ),
                     ),
                     Text(
-                      'Lung Health Risk Assessment',
+                      'Air & Habit Check',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -218,7 +218,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'What is Risk Assessment? 😊',
+                  'What is Air & Habit Check? 😊',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
@@ -227,7 +227,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
                 ),
                 const SizedBox(height: 6),
                 const Text(
-                  'This tool looks at your environment, lifestyle and health history to calculate a Lung Health Score. It helps you understand your risk before symptoms even appear.',
+                  'This reflection looks at your environment and daily habits to create a simple breathing comfort score. It is meant to encourage healthier routines and cleaner spaces.',
                   style: TextStyle(
                     color: Colors.white70,
                     fontSize: 12,
@@ -250,7 +250,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
                       SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          'Higher score = healthier lungs. Lower score = higher risk. Always see a doctor for a real diagnosis.',
+                          'Higher score = more supportive habits. Lower score = more room to improve your space and routine.',
                           style: TextStyle(color: Colors.white, fontSize: 11),
                         ),
                       ),
@@ -266,7 +266,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
               const Text('📊', style: TextStyle(fontSize: 22)),
               const SizedBox(width: 8),
               Text(
-                'Rate Each Risk Factor',
+                'Rate Each Lifestyle Factor',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
@@ -411,9 +411,9 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
     if (score >= 75) {
       emoji = '🌿';
       scoreColor = const Color(0xFF43A047);
-      title = 'Great Lung Health!';
+      title = 'Strong Daily Balance';
       message =
-          'Your lifestyle and environment show low risk to your lungs. Keep up the great efforts — your lungs thank you!';
+          'Your current routine looks supportive and balanced. Keep building on these habits to stay comfortable and steady.';
       tips = [
         'Maintain your diet and exercise',
         'Keep checking AQI levels',
@@ -422,9 +422,9 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
     } else if (score >= 50) {
       emoji = '⚠️';
       scoreColor = const Color(0xFFFB8C00);
-      title = 'Moderate Risk';
+      title = 'Some Room to Improve';
       message =
-          'There are some risk factors in your environment or lifestyle. Take simple steps now before symptoms appear.';
+          'A few parts of your routine or environment could use attention. Small changes can make breathing feel easier day to day.';
       tips = [
         'Improve ventilation at home',
         'Wear a mask on polluted days',
@@ -433,13 +433,13 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
     } else {
       emoji = '🚨';
       scoreColor = const Color(0xFFE53935);
-      title = 'High Risk — Take Action';
+      title = 'Reset Your Routine';
       message =
-          'Your risk score is low. Multiple environmental or lifestyle factors are harming your lung health. Consider consulting a doctor and making changes.';
+          'Your current routine may be making breathing comfort harder. Focus on cleaner air, gentler movement, and more consistent self-care this week.';
       tips = [
         'Quit or avoid cigarette exposure',
-        'Consult a doctor this week',
-        'Use an air purifier at home',
+        'Create a cleaner corner at home',
+        'Spend time away from smoke and dust',
       ];
     }
 
@@ -534,7 +534,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  '🛡️  What You Can Do Now',
+                  '🛡️  What You Can Try Now',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
@@ -584,7 +584,7 @@ class _RiskAssessmentScreenState extends State<RiskAssessmentScreen>
                   fontSize: 15,
                 ),
               ),
-              child: const Text('← Back to Diagnose'),
+              child: const Text('← Back to Check-In'),
             ),
           ),
           const SizedBox(height: 10),

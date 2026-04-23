@@ -9,7 +9,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
-          'Teacher / Parent Alert',
+          'Caregiver Tips',
           style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
         backgroundColor: Colors.transparent,
@@ -28,7 +28,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             const Text(
-              'Early Detection in Children',
+              'Comfort Cues for Children',
               style: TextStyle(
                 color: Color(0xFF3D2B1F),
                 fontSize: 24,
@@ -37,7 +37,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Text(
-              'Parents and teachers play a crucial role in identifying early signs of lung problems in children. Children may not always be able to explain their symptoms clearly, so observing their behavior is important.',
+              'Parents and teachers can help children feel more comfortable by noticing their energy, breathing ease, and surroundings. Many children find it hard to describe discomfort clearly, so gentle observation matters.',
               style: TextStyle(
                 color: Color(0xFF8C7B6B),
                 fontSize: 16,
@@ -56,7 +56,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
                   Text(
-                    'Watch out for:',
+                    'Notice when a child seems:',
                     style: TextStyle(
                       color: Color(0xFFC17D3C),
                       fontSize: 18,
@@ -64,16 +64,16 @@ class TeacherParentAlertScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 12),
-                  _BulletPoint('Frequent coughing'),
-                  _BulletPoint('Difficulty in breathing'),
-                  _BulletPoint('Reduced participation in physical activities'),
-                  _BulletPoint('Unusual fatigue'),
+                  _BulletPoint('Frequently coughing or clearing their throat'),
+                  _BulletPoint('Less comfortable during active play'),
+                  _BulletPoint('Tired or distracted more than usual'),
+                  _BulletPoint('Bothered by dusty or stuffy spaces'),
                 ],
               ),
             ),
             const SizedBox(height: 24),
             const Text(
-              'Action Plan',
+              'Support Plan',
               style: TextStyle(
                 color: Color(0xFF3D2B1F),
                 fontSize: 20,
@@ -82,7 +82,7 @@ class TeacherParentAlertScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             const Text(
-              'If a child shows repeated symptoms, it is important to seek medical advice. Early intervention can prevent the condition from worsening.\n\nTeachers can also help by ensuring that classrooms are well-ventilated and free from dust and pollutants.\n\nCreating awareness among parents and teachers ensures that children receive timely care and support, reducing the risk of long-term health issues.',
+              'If a child seems uncomfortable repeatedly, help them slow down, sit in a calm place, and move away from smoke, dust, or strong smells.\n\nTeachers can also support children by keeping classrooms well-ventilated, offering water breaks, and encouraging gentle breathing routines.\n\nConsistent awareness from caregivers helps children feel supported and makes it easier to spot patterns that may need extra attention.',
               style: TextStyle(
                 color: Color(0xFF8C7B6B),
                 fontSize: 16,

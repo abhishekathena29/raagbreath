@@ -9,7 +9,7 @@ class MedicationAwarenessScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
-          'Medication Awareness',
+          'Comfort Tools',
           style: TextStyle(color: Color(0xFF3D2B1F)),
         ),
         backgroundColor: Colors.transparent,
@@ -21,10 +21,10 @@ class MedicationAwarenessScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(Icons.medication, color: Color(0xFFC17D3C), size: 64),
+            const Icon(Icons.air, color: Color(0xFFC17D3C), size: 64),
             const SizedBox(height: 24),
             const Text(
-              'Understanding Your Inhalers',
+              'Helpful Breathing Space Tools',
               style: TextStyle(
                 color: Color(0xFF3D2B1F),
                 fontSize: 24,
@@ -33,7 +33,7 @@ class MedicationAwarenessScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Text(
-              'Medications, such as inhalers, are commonly used to manage respiratory conditions. Inhalers deliver medicine directly to the lungs, making them effective and fast-acting. When used correctly, they are safe and help control symptoms.',
+              'Some everyday tools can make your space feel more comfortable and support calmer breathing habits. These are general wellness ideas for creating cleaner, gentler surroundings at home or school.',
               style: TextStyle(
                 color: Color(0xFF8C7B6B),
                 fontSize: 16,
@@ -42,24 +42,24 @@ class MedicationAwarenessScreen extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             _DeviceCard(
-              title: 'Nebulizer',
+              title: 'Air Purifier',
               description:
-                  'A machine that delivers a fine, steady mist of medicine through a mouthpiece or mask.',
+                  'Helps reduce dust and fine particles in indoor spaces, especially in rooms that feel stuffy or polluted.',
               icon: Icons.air,
             ),
             const SizedBox(height: 16),
             _DeviceCard(
-              title: 'Dry Powder Inhaler',
+              title: 'Humidifier',
               description:
-                  'Contains pre-set doses of medicine in powder form. When you take a deep, fast breath in from the inhaler, the medicine is released into your airways.',
-              icon: Icons.compress,
+                  'Adds gentle moisture to dry indoor air, which some people find more comfortable during dry weather or air-conditioned days.',
+              icon: Icons.water_drop,
             ),
             const SizedBox(height: 16),
             _DeviceCard(
-              title: 'Metered-Dose Inhaler',
+              title: 'Steam Bowl',
               description:
-                  'Contains a canister of medicine. When you press the inhaler, it sprays a pre-set amount of medicine through your mouth to your airways.',
-              icon: Icons.water_drop,
+                  'A warm bowl of steam can be used for a short, mindful breathing break. Keep a safe distance and use adult supervision when needed.',
+              icon: Icons.spa,
             ),
           ],
         ),

@@ -28,21 +28,20 @@ class ChatbotService extends ChangeNotifier {
   String? get error => _error;
 
   static const String _systemPrompt = '''
-You are a friendly, knowledgeable lung health assistant called "RaagBreath AI".
+You are a friendly, knowledgeable breathing wellness assistant called "RaagBreath AI".
 Your expertise covers:
 - Respiratory anatomy and how lungs work
 - Breathing exercises (pranayama, diaphragmatic breathing, pursed-lip breathing)
-- Common lung conditions (asthma, COPD, bronchitis, pneumonia)
 - Air quality and pollution awareness (AQI, PM2.5)
 - Tips for maintaining healthy lungs
-- When to see a doctor for respiratory symptoms
 - Yoga and meditation for lung health
 
 Guidelines:
 - Always be empathetic, encouraging, and supportive.
 - Use simple language that anyone can understand.
 - If asked about topics outside lung/respiratory health, politely redirect the conversation back.
-- Never provide specific medical diagnoses. Always recommend consulting a doctor for serious concerns.
+- Never provide medical diagnoses, treatment plans, or medication advice.
+- Keep the conversation focused on general wellness, relaxation, breathing comfort, and air-quality awareness.
 - Keep responses concise (2-4 paragraphs max) unless the user asks for detailed information.
 - Use emojis sparingly to keep the tone warm and friendly.
 ''';
@@ -82,8 +81,7 @@ Guidelines:
       // Add welcome message
       _messages.add(
         ChatMessage(
-          text:
-              'Hello! 👋 I\'m your Lung Health Assistant. You can ask me anything about breathing exercises, lung conditions, air quality, or how to keep your lungs healthy. How can I help you today?',
+          text: 'Hello! 👋 I\'m your breathing wellness assistant. You can ask me about breathing exercises, calming routines, air quality, and everyday habits that support comfortable breathing. How can I help you today?',
           isUser: false,
         ),
       );
@@ -135,7 +133,7 @@ Guidelines:
     _messages.add(
       ChatMessage(
         text:
-            'Chat cleared! 🌬️ Feel free to ask me anything about lung health.',
+            'Chat cleared! 🌬️ Feel free to ask me about breathing wellness.',
         isUser: false,
       ),
     );

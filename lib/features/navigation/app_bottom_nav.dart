@@ -49,12 +49,12 @@ class AppBottomNav extends StatelessWidget {
                 label: 'Learn',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.medical_information),
-                label: 'Diagnose',
+                icon: Icon(Icons.tune),
+                label: 'Check-In',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.healing),
-                label: 'Treatment',
+                icon: Icon(Icons.spa),
+                label: 'Practice',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.auto_awesome),

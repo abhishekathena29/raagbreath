@@ -286,7 +286,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'SYMPTOM CHECKER',
+                          'BREATHING CHECK-IN',
                           style: TextStyle(
                             color: Colors.white60,
                             fontSize: 11,
@@ -362,7 +362,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
                   const Row(
                     children: [
                       Text(
-                        'What is a Symptom Checker? 🧐',
+                          'What is a Breathing Check-In? 🧐',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w800,
@@ -373,7 +373,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
                   ),
                   const SizedBox(height: 6),
                   const Text(
-                    'This tool asks a few simple questions about how you\'re feeling. Based on your answers, it gives you a quick idea of whether your lungs might need attention.',
+                    'This quick reflection asks how you feel today and turns your answers into simple wellness guidance. It is designed to help you notice patterns in comfort, energy, and air quality.',
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 12,
@@ -396,7 +396,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'This tool is a guide only — it does not replace a real doctor.',
+                            'This is a wellness guide only and should be used for self-reflection, not medical decision-making.',
                             style: TextStyle(color: Colors.white, fontSize: 11),
                           ),
                         ),
@@ -424,7 +424,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
               children: [
                 _HelpChip(emoji: '❓', label: 'Ask\nQuestions'),
                 const SizedBox(width: 10),
-                _HelpChip(emoji: '🔍', label: 'Analyse\nAnswers'),
+                _HelpChip(emoji: '🔍', label: 'Review\nAnswers'),
                 const SizedBox(width: 10),
                 _HelpChip(emoji: '✅', label: 'Guide\nYou'),
               ],
@@ -434,7 +434,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
 
           // Section label
           Text(
-            '🙏  Start the Check',
+            '🙏  Start the Check-In',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w800,
@@ -594,35 +594,35 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
     List<String> tips;
 
     if (_riskScore >= 10) {
-      riskLevel = 'High Risk';
+      riskLevel = 'Needs Attention';
       emoji = '🚨';
       riskColor = const Color(0xFFE53935);
       advice =
-          'Your answers suggest significant lung symptoms. Please consult a doctor as soon as possible — early action matters!';
+          'Your answers suggest you may be under a lot of strain right now. Slow down, rest, avoid smoky spaces, and reach out to a trusted adult or qualified professional if the discomfort feels intense or persistent.';
 
       tips = [
         'Avoid smoking & polluted areas',
         'Use a mask outdoors',
-        'Do not delay medical help',
+        'Choose rest and calm breathing',
       ];
     } else if (_riskScore >= 5) {
-      riskLevel = 'Moderate Risk';
+      riskLevel = 'Mixed Signals';
       emoji = '⚠️';
       riskColor = const Color(0xFFFB8C00);
       advice =
-          'You have some symptoms worth watching. Track them over the next few days and see a doctor if they worsen.';
+          'You may be noticing some discomfort worth paying attention to. Track how you feel for a few days and adjust your routine toward cleaner air and gentler activity.';
 
       tips = [
         'Check AQI before going out',
         'Try breathing exercises',
-        'See a doctor if symptoms persist',
+        'Write down what makes breathing easier',
       ];
     } else {
-      riskLevel = 'Low Risk';
+      riskLevel = 'Feeling Steady';
       emoji = '✅';
       riskColor = const Color(0xFF43A047);
       advice =
-          'Your symptoms are mild or absent. Keep up healthy habits and continue monitoring your lung health regularly.';
+          'Your answers suggest you are feeling fairly steady right now. Keep up supportive habits and continue noticing how your body responds each day.';
 
       tips = [
         'Do 20 min of daily exercise',
@@ -653,7 +653,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
                 Text(emoji, style: const TextStyle(fontSize: 60)),
                 const SizedBox(height: 10),
                 const Text(
-                  'Assessment Complete',
+                  'Check-In Complete',
                   style: TextStyle(fontSize: 14, color: Color(0xFF757575)),
                 ),
                 const SizedBox(height: 6),
@@ -758,7 +758,7 @@ class _SymptomCheckerScreenState extends State<SymptomCheckerScreen>
                   fontSize: 15,
                 ),
               ),
-              child: const Text('← Back to Diagnose'),
+              child: const Text('← Back to Check-In'),
             ),
           ),
           const SizedBox(height: 12),

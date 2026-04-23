@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:raag_breath/features/treatment/doctor_connect_screen.dart';
 import 'package:raag_breath/features/treatment/medication_awareness_screen.dart';
 import 'package:raag_breath/features/treatment/school_action_screen.dart';
 import 'package:raag_breath/features/meditation/meditation.dart';
@@ -14,7 +13,7 @@ class TreatmentScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
-          'Treatment',
+          'Practice',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Color(0xFF3D2B1F),
@@ -28,7 +27,7 @@ class TreatmentScreen extends StatelessWidget {
         padding: const EdgeInsets.all(24),
         children: [
           const Text(
-            'Take Action',
+            'Support Your Routine',
             style: TextStyle(
               color: Color(0xFFC17D3C),
               fontSize: 22,
@@ -71,9 +70,9 @@ class TreatmentScreen extends StatelessWidget {
           // ),
           // const SizedBox(height: 16),
           _TreatmentCard(
-            title: 'Medication Awareness',
-            subtitle: 'Learn about inhalers and devices',
-            icon: Icons.medication,
+            title: 'Comfort Tools',
+            subtitle: 'Explore simple tools that support easier breathing spaces',
+            icon: Icons.air,
             accentColor: const Color(0xFFC17D3C),
             onTap: () => Navigator.push(
               context,
@@ -84,8 +83,8 @@ class TreatmentScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _TreatmentCard(
-            title: 'School Action Kit',
-            subtitle: 'Support for students with respiratory conditions',
+            title: 'Classroom Comfort Tips',
+            subtitle: 'Everyday ideas for calmer, cleaner learning spaces',
             icon: Icons.school,
             accentColor: const Color(0xFF5B8A6E),
             onTap: () => Navigator.push(

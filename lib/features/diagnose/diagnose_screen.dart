@@ -13,7 +13,7 @@ class DiagnoseScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
         title: const Text(
-          'Diagnose',
+          'Check-In',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Color(0xFF3D2B1F),
@@ -27,7 +27,7 @@ class DiagnoseScreen extends StatelessWidget {
         padding: const EdgeInsets.all(24),
         children: [
           const Text(
-            'Check Your Symptoms',
+            'Breathing & Lifestyle Check-In',
             style: TextStyle(
               color: Color(0xFFC17D3C),
               fontSize: 22,
@@ -36,8 +36,8 @@ class DiagnoseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DiagnoseCard(
-            title: 'Symptom Checker',
-            subtitle: 'Quick questionnaire to assess your lung condition',
+            title: 'Breathing Check-In',
+            subtitle: 'Quick reflection on how your breathing feels today',
             icon: Icons.checklist,
             accentColor: const Color(0xFF4A7FA8),
             onTap: () => Navigator.push(
@@ -47,8 +47,8 @@ class DiagnoseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DiagnoseCard(
-            title: 'Risk Assessment',
-            subtitle: 'Calculate your lung health score',
+            title: 'Air & Habit Check',
+            subtitle: 'See how daily habits may affect your breathing comfort',
             icon: Icons.analytics,
             accentColor: const Color(0xFFC17D3C),
             onTap: () => Navigator.push(
@@ -58,8 +58,8 @@ class DiagnoseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DiagnoseCard(
-            title: 'Lung Capacity Test',
-            subtitle: 'Track how efficiently your lungs use oxygen',
+            title: 'Breath Timer',
+            subtitle: 'Time a gentle breath-hold practice for awareness',
             icon: Icons.air,
             accentColor: const Color(0xFF7B5EA7),
             onTap: () => Navigator.push(
@@ -69,8 +69,8 @@ class DiagnoseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DiagnoseCard(
-            title: 'Teacher / Parent Alert',
-            subtitle: 'Identify early signs of lung problems in children',
+            title: 'Caregiver Tips',
+            subtitle: 'Support children with calm routines and cleaner air',
             icon: Icons.warning_amber_rounded,
             accentColor: const Color(0xFFCF8A3E),
             onTap: () => Navigator.push(
