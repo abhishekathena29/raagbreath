@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raag_breath/core/l10n/app_strings.dart';
 
 class AppBottomNav extends StatelessWidget {
   const AppBottomNav({
@@ -39,26 +40,26 @@ class AppBottomNav extends StatelessWidget {
             selectedFontSize: 12,
             unselectedFontSize: 12,
             elevation: 0,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_filled),
-                label: 'Home',
+                icon: const Icon(Icons.home_filled),
+                label: context.strings.navHome,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.auto_stories),
-                label: 'Learn',
+                icon: const Icon(Icons.auto_stories),
+                label: context.strings.navLearn,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.tune),
-                label: 'Check-In',
+                icon: const Icon(Icons.tune),
+                label: context.strings.navCheckIn,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.spa),
-                label: 'Practice',
+                icon: const Icon(Icons.spa),
+                label: context.strings.navAccessToCare,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.auto_awesome),
-                label: 'AI Chat',
+                icon: const Icon(Icons.auto_awesome),
+                label: context.strings.navAiChat,
               ),
             ],
           ),

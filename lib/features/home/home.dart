@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:raag_breath/core/l10n/app_strings.dart';
 import 'package:raag_breath/features/auth/models/user_model.dart';
 import 'package:raag_breath/features/auth/services/auth_service.dart';
 import 'package:raag_breath/features/auth/services/firestore_service.dart';
@@ -13,13 +14,6 @@ import 'package:raag_breath/features/chatbot/chatbot_screen.dart';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-String _greeting() {
-  final h = DateTime.now().hour;
-  if (h < 12) return 'Good Morning';
-  if (h < 17) return 'Good Afternoon';
-  return 'Good Evening';
-}
-
 String _greetingEmoji() {
   final h = DateTime.now().hour;
   if (h < 12) return '☀️';
@@ -27,59 +21,39 @@ String _greetingEmoji() {
   return '🌙';
 }
 
-String _userTypeLabel(UserType type) {
+String _userTypeLabel(BuildContext context, UserType type) {
+  final s = context.strings;
   switch (type) {
     case UserType.student:
-      return 'Student';
+      return s.roleStudent;
     case UserType.teacher:
-      return 'Teacher';
+      return s.roleTeacher;
     case UserType.schoolAdmin:
-      return 'School Admin';
+      return s.roleSchoolAdmin;
     case UserType.parent:
-      return 'Parent';
+      return s.roleParent;
     case UserType.ngo:
-      return 'NGO';
+      return s.roleNgo;
   }
 }
 
 // ─── Daily Tips Data ──────────────────────────────────────────────────────────
 
-const _kHealthTips = [
-  _HealthTip(
-    '🫁',
-    'Deep Breathing',
-    'Practice deep breathing for 10 minutes daily to improve lung capacity and reduce stress.',
-  ),
-  _HealthTip(
-    '💧',
-    'Stay Hydrated',
-    'Drink at least 8 glasses of water daily. Proper hydration keeps your airways moist and clear.',
-  ),
-  _HealthTip(
-    '🚶',
-    'Daily Walk',
-    'A 30-minute brisk walk each day strengthens your lungs and improves oxygen intake.',
-  ),
-  _HealthTip(
-    '😤',
-    'Pranayama',
-    'Practice Nadi Shodhana (alternate nostril breathing) to balance energy and improve focus.',
-  ),
-  _HealthTip(
-    '🪟',
-    'Fresh Air',
-    'Open windows in the morning to ventilate your home and flush out pollutants overnight.',
-  ),
-  _HealthTip(
-    '🎵',
-    'Raga Therapy',
-    'Listening to Raag Bhairav in the morning supports calm breathing and mental clarity.',
-  ),
-];
-
 class _HealthTip {
   final String emoji, title, body;
   const _HealthTip(this.emoji, this.title, this.body);
+}
+
+List<_HealthTip> _healthTips(BuildContext context) {
+  final s = context.strings;
+  return [
+    _HealthTip('🫁', s.tipDeepBreathingTitle, s.tipDeepBreathingBody),
+    _HealthTip('💧', s.tipHydrateTitle, s.tipHydrateBody),
+    _HealthTip('🚶', s.tipWalkTitle, s.tipWalkBody),
+    _HealthTip('😤', s.tipPranayamaTitle, s.tipPranayamaBody),
+    _HealthTip('🪟', s.tipFreshAirTitle, s.tipFreshAirBody),
+    _HealthTip('🎵', s.tipRagaTitle, s.tipRagaBody),
+  ];
 }
 
 // ─── Home Page ────────────────────────────────────────────────────────────────
@@ -134,9 +108,9 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Quick Actions',
-                  style: TextStyle(
+                Text(
+                  context.strings.quickActions,
+                  style: const TextStyle(
                     color: Color(0xFF1A1A2E),
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
@@ -156,16 +130,16 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Daily Health Tips',
-                  style: TextStyle(
+                Text(
+                  context.strings.dailyHealthTips,
+                  style: const TextStyle(
                     color: Color(0xFF1A1A2E),
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
                 const SizedBox(height: 14),
-                ..._kHealthTips.map((tip) => _TipCard(tip: tip)),
+                ..._healthTips(context).map((tip) => _TipCard(tip: tip)),
               ],
             ),
           ),
@@ -185,8 +159,12 @@ class _GreetingBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = user?.name.isNotEmpty == true ? user!.name : 'Friend';
-    final role = user != null ? _userTypeLabel(user!.userType) : '';
+    final name = user?.name.isNotEmpty == true
+        ? user!.name
+        : context.strings.friend;
+    final role = user != null
+        ? _userTypeLabel(context, user!.userType)
+        : '';
 
     return Container(
       width: double.infinity,
@@ -213,7 +191,7 @@ class _GreetingBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${_greeting()} ${_greetingEmoji()}',
+                  '${context.strings.greetingNow} ${_greetingEmoji()}',
                   style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 14,
@@ -291,21 +269,22 @@ class _StatsRow extends StatelessWidget {
     final sessions = user?.totalPracticeMinutes ?? 0;
     final lungScore = user?.lungCapacityScore ?? 0.0;
 
+    final s = context.strings;
     return Row(
       children: [
         _StatCard(
           icon: Icons.local_fire_department_rounded,
-          iconColor: const Color(0xFFD32F2F), // amber bg, consistent with app
+          iconColor: const Color(0xFFD32F2F),
           value: '$streak',
-          label: 'Day Streak',
+          label: s.dayStreak,
           bgColor: const Color(0xFFFFF3E0),
         ),
         const SizedBox(width: 12),
         _StatCard(
           icon: Icons.calendar_month_rounded,
           iconColor: const Color(0xFF8B6B4A),
-          value: '${sessions}m',
-          label: 'Total Practice',
+          value: '$sessions${s.minutesShort}',
+          label: s.totalPractice,
           bgColor: const Color(0xFFF5EDE0),
         ),
         const SizedBox(width: 12),
@@ -313,7 +292,7 @@ class _StatsRow extends StatelessWidget {
           icon: Icons.air_rounded,
           iconColor: const Color(0xFF5B8A6E),
           value: lungScore > 0 ? '${lungScore.toStringAsFixed(1)}L' : '--',
-          label: 'Lung Score',
+          label: s.lungScore,
           bgColor: const Color(0xFFE8F5EE),
         ),
       ],
@@ -401,71 +380,91 @@ class _ActionItem {
 }
 
 class _QuickActionsGrid extends StatelessWidget {
-  static final _actions = <_ActionItem>[
-    _ActionItem(
-      'Learn',
-      '📚',
-      const Color(0xFF1565C0),
-      const Color(0xFFE3F2FD),
-      (_) => const LearnScreen(),
-    ),
-    _ActionItem(
-      'Check-In',
-      '🫶',
-      const Color(0xFFD32F2F),
-      const Color(0xFFFFEBEE),
-      (_) => const DiagnoseScreen(),
-    ),
-    _ActionItem(
-      'Practice',
-      '🌿',
-      const Color(0xFFE65100),
-      const Color(0xFFFFF3E0),
-      (_) => const TreatmentScreen(),
-    ),
-    _ActionItem(
-      'Meditation',
-      '🧘',
-      const Color(0xFF7B1FA2),
-      const Color(0xFFF3E5F5),
-      (_) => const MeditationPage(),
-    ),
-    _ActionItem(
-      'Music Therapy',
-      '🎵',
-      const Color(0xFF880E4F),
-      const Color(0xFFFCE4EC),
-      (_) => const MusicPage(),
-    ),
-    _ActionItem(
-      'AI Chat',
-      '🤖',
-      const Color(0xFF00695C),
-      const Color(0xFFE0F2F1),
-      (_) => const ChatbotScreen(),
-    ),
-  ];
+  List<_ActionItem> _buildActions(BuildContext context) {
+    final s = context.strings;
+    return [
+      _ActionItem(
+        s.sectionLearn,
+        '📚',
+        const Color(0xFF1565C0),
+        const Color(0xFFE3F2FD),
+        (_) => const LearnScreen(),
+      ),
+      _ActionItem(
+        s.sectionDiagnose,
+        '🫶',
+        const Color(0xFFD32F2F),
+        const Color(0xFFFFEBEE),
+        (_) => const DiagnoseScreen(),
+      ),
+      _ActionItem(
+        s.sectionTreatment,
+        '🌿',
+        const Color(0xFFE65100),
+        const Color(0xFFFFF3E0),
+        (_) => const TreatmentScreen(),
+      ),
+      _ActionItem(
+        s.sectionMeditation,
+        '🧘',
+        const Color(0xFF7B1FA2),
+        const Color(0xFFF3E5F5),
+        (_) => const MeditationPage(),
+      ),
+      _ActionItem(
+        s.sectionMusic,
+        '🎵',
+        const Color(0xFF880E4F),
+        const Color(0xFFFCE4EC),
+        (_) => const MusicPage(),
+      ),
+      _ActionItem(
+        s.sectionAiChat,
+        '🤖',
+        const Color(0xFF00695C),
+        const Color(0xFFE0F2F1),
+        (_) => const ChatbotScreen(),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 0.9,
+    final actions = _buildActions(context);
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 920),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isWide = constraints.maxWidth >= 760;
+            final crossAxisCount = isWide ? 6 : 3;
+            final childAspectRatio = isWide ? 1.18 : 0.9;
+
+            return GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: isWide ? 10 : 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: childAspectRatio,
+              ),
+              itemCount: actions.length,
+              itemBuilder: (ctx, i) =>
+                  _ActionCard(action: actions[i], compact: isWide),
+            );
+          },
+        ),
       ),
-      itemCount: _actions.length,
-      itemBuilder: (ctx, i) => _ActionCard(action: _actions[i]),
     );
   }
 }
 
 class _ActionCard extends StatefulWidget {
   final _ActionItem action;
-  const _ActionCard({required this.action});
+  final bool compact;
+  const _ActionCard({required this.action, required this.compact});
 
   @override
   State<_ActionCard> createState() => _ActionCardState();
@@ -498,6 +497,10 @@ class _ActionCardState extends State<_ActionCard>
   @override
   Widget build(BuildContext context) {
     final a = widget.action;
+    final iconSize = widget.compact ? 42.0 : 52.0;
+    final emojiSize = widget.compact ? 21.0 : 24.0;
+    final labelSize = widget.compact ? 11.0 : 12.0;
+
     return GestureDetector(
       onTapDown: (_) => _ctrl.forward(),
       onTapUp: (_) {
@@ -508,9 +511,14 @@ class _ActionCardState extends State<_ActionCard>
       child: ScaleTransition(
         scale: _scale,
         child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: widget.compact ? 8 : 10,
+            vertical: widget.compact ? 10 : 12,
+          ),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(widget.compact ? 16 : 20),
+            border: Border.all(color: const Color(0xFFE8DDD0)),
             boxShadow: [
               BoxShadow(
                 color: const Color(0xFFC17D3C).withOpacity(0.08),
@@ -523,24 +531,26 @@ class _ActionCardState extends State<_ActionCard>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 52,
-                height: 52,
+                width: iconSize,
+                height: iconSize,
                 decoration: BoxDecoration(
                   color: a.bgColor,
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: Text(a.emoji, style: const TextStyle(fontSize: 24)),
+                  child: Text(a.emoji, style: TextStyle(fontSize: emojiSize)),
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: widget.compact ? 7 : 8),
               Text(
                 a.label,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 12,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: labelSize,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF3D2B1F),
+                  color: const Color(0xFF3D2B1F),
                 ),
               ),
             ],

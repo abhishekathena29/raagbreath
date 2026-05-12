@@ -1,54 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:raag_breath/core/data/practice_data.dart';
+import 'package:raag_breath/core/l10n/app_strings.dart';
+import 'package:raag_breath/core/models/practice_item.dart';
 import 'package:raag_breath/features/meditation/practice_detail.dart';
 
 class MusicPage extends StatelessWidget {
   const MusicPage({super.key});
 
-  static const List<_LocalPracticeItem> _taalPractice = [
-    _LocalPracticeItem(
-      title: 'Teentaal',
-      subtitle: '16 beats, steady and expansive.',
-      meta: 'Dha Dhin Dhin Dha',
-      accent: Color(0xFFC17D3C),
-    ),
-    _LocalPracticeItem(
-      title: 'Ektaal',
-      subtitle: '12 beats for slow vilambit.',
-      meta: 'Dhin Dhin DhaGe',
-      accent: Color(0xFF4A7FA8),
-    ),
-    _LocalPracticeItem(
-      title: 'Rupak',
-      subtitle: '7 beats with a rolling feel.',
-      meta: 'Tin Tin Na Dhin Na',
-      accent: Color(0xFF7B5EA7),
-    ),
-  ];
-
-  static const List<_LocalPracticeItem> _breathTone = [
-    _LocalPracticeItem(
-      title: 'AUM Humming',
-      subtitle: 'Resonant humming to steady the breath.',
-      meta: '5-7 min',
-      accent: Color(0xFFC17D3C),
-    ),
-    _LocalPracticeItem(
-      title: 'Sargam Warmup',
-      subtitle: 'Sa Re Ga to loosen the voice.',
-      meta: '7-10 min',
-      accent: Color(0xFF4A7FA8),
-    ),
-    _LocalPracticeItem(
-      title: 'Tanpura Drone',
-      subtitle: 'Sustain tone for pitch focus.',
-      meta: '10-12 min',
-      accent: Color(0xFF7B5EA7),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final s = context.strings;
     return Scaffold(
       body: Stack(
         children: [
@@ -59,28 +20,37 @@ class MusicPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Music',
-                    style: TextStyle(
+                  Text(
+                    s.music,
+                    style: const TextStyle(
                       color: Color(0xFF3D2B1F),
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Indian classical practice for breath, raga, and rhythm.',
-                    style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
+                  Text(
+                    s.musicSubtitle,
+                    style: const TextStyle(
+                      color: Color(0xFF8C7B6B),
+                      fontSize: 15,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   _RaagSection(
-                    title: 'Raag Practice',
+                    title: s.raagPractice,
                     items: PracticeData.raagPractice,
                   ),
                   const SizedBox(height: 18),
-                  _Section(title: 'Taal and Layakari', items: _taalPractice),
+                  _PracticeSection(
+                    title: s.taalLayakari,
+                    items: PracticeData.taalPractice,
+                  ),
                   const SizedBox(height: 18),
-                  _Section(title: 'Breath + Nada', items: _breathTone),
+                  _PracticeSection(
+                    title: s.breathNada,
+                    items: PracticeData.breathTone,
+                  ),
                 ],
               ),
             ),
@@ -134,11 +104,11 @@ class _RaagSection extends StatelessWidget {
   }
 }
 
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.items});
+class _PracticeSection extends StatelessWidget {
+  const _PracticeSection({required this.title, required this.items});
 
   final String title;
-  final List<_LocalPracticeItem> items;
+  final List<PracticeItem> items;
 
   @override
   Widget build(BuildContext context) {
@@ -155,11 +125,21 @@ class _Section extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         ...items.map(
-          (item) => _PracticeCard(
-            title: item.title,
-            subtitle: item.subtitle,
-            meta: item.meta,
-            accent: item.accent,
+          (item) => GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PracticeDetailScreen(item: item),
+                ),
+              );
+            },
+            child: _PracticeCard(
+              title: item.title,
+              subtitle: item.subtitle,
+              meta: item.meta,
+              accent: item.accent,
+            ),
           ),
         ),
       ],
@@ -244,20 +224,6 @@ class _PracticeCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class _LocalPracticeItem {
-  const _LocalPracticeItem({
-    required this.title,
-    required this.subtitle,
-    required this.meta,
-    required this.accent,
-  });
-
-  final String title;
-  final String subtitle;
-  final String meta;
-  final Color accent;
 }
 
 class _SectionBackground extends StatelessWidget {

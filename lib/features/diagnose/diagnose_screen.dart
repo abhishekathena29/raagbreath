@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raag_breath/core/l10n/app_strings.dart';
 import 'package:raag_breath/features/diagnose/symptom_checker_screen.dart';
 import 'package:raag_breath/features/diagnose/risk_assessment_screen.dart';
 import 'package:raag_breath/features/diagnose/teacher_parent_alert_screen.dart';
@@ -9,12 +10,13 @@ class DiagnoseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = context.strings;
     return Scaffold(
       backgroundColor: const Color(0xFFFBF6EF),
       appBar: AppBar(
-        title: const Text(
-          'Check-In',
-          style: TextStyle(
+        title: Text(
+          s.checkIn,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: Color(0xFF3D2B1F),
           ),
@@ -26,9 +28,9 @@ class DiagnoseScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
-          const Text(
-            'Breathing & Lifestyle Check-In',
-            style: TextStyle(
+          Text(
+            s.breathingLifestyleCheck,
+            style: const TextStyle(
               color: Color(0xFFC17D3C),
               fontSize: 22,
               fontWeight: FontWeight.w800,
@@ -36,8 +38,8 @@ class DiagnoseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DiagnoseCard(
-            title: 'Breathing Check-In',
-            subtitle: 'Quick reflection on how your breathing feels today',
+            title: s.breathingCheckIn,
+            subtitle: s.breathingCheckInSub,
             icon: Icons.checklist,
             accentColor: const Color(0xFF4A7FA8),
             onTap: () => Navigator.push(
@@ -47,8 +49,8 @@ class DiagnoseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DiagnoseCard(
-            title: 'Air & Habit Check',
-            subtitle: 'See how daily habits may affect your breathing comfort',
+            title: s.airHabitCheck,
+            subtitle: s.airHabitCheckSub,
             icon: Icons.analytics,
             accentColor: const Color(0xFFC17D3C),
             onTap: () => Navigator.push(
@@ -58,8 +60,8 @@ class DiagnoseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DiagnoseCard(
-            title: 'Breath Timer',
-            subtitle: 'Time a gentle breath-hold practice for awareness',
+            title: s.breathTimer,
+            subtitle: s.breathTimerSub,
             icon: Icons.air,
             accentColor: const Color(0xFF7B5EA7),
             onTap: () => Navigator.push(
@@ -69,8 +71,8 @@ class DiagnoseScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _DiagnoseCard(
-            title: 'Caregiver Tips',
-            subtitle: 'Support children with calm routines and cleaner air',
+            title: s.caregiverTips,
+            subtitle: s.caregiverTipsSub,
             icon: Icons.warning_amber_rounded,
             accentColor: const Color(0xFFCF8A3E),
             onTap: () => Navigator.push(

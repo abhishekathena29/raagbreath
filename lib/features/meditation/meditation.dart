@@ -1,54 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:raag_breath/core/data/practice_data.dart';
+import 'package:raag_breath/core/l10n/app_strings.dart';
+import 'package:raag_breath/core/models/practice_item.dart';
 import 'package:raag_breath/features/meditation/practice_detail.dart';
 
 class MeditationPage extends StatelessWidget {
   const MeditationPage({super.key});
 
-  static const List<_LocalPracticeItem> _meditations = [
-    _LocalPracticeItem(
-      title: 'So-Ham',
-      subtitle: 'Breath mantra for inward attention.',
-      meta: '8-12 min',
-      accent: Color(0xFFC17D3C),
-    ),
-    _LocalPracticeItem(
-      title: 'Trataka',
-      subtitle: 'Soft gaze to steady the mind.',
-      meta: '5-8 min',
-      accent: Color(0xFF4A7FA8),
-    ),
-    _LocalPracticeItem(
-      title: 'Yoga Nidra',
-      subtitle: 'Guided body scan for deep rest.',
-      meta: '15-20 min',
-      accent: Color(0xFF7B5EA7),
-    ),
-  ];
-
-  static const List<_LocalPracticeItem> _yoga = [
-    _LocalPracticeItem(
-      title: 'Surya Namaskar',
-      subtitle: 'Sun salutations to warm up the body.',
-      meta: '10-12 min',
-      accent: Color(0xFFC17D3C),
-    ),
-    _LocalPracticeItem(
-      title: 'Hatha Basics',
-      subtitle: 'Foundational postures for alignment.',
-      meta: '12-15 min',
-      accent: Color(0xFF5B8A6E),
-    ),
-    _LocalPracticeItem(
-      title: 'Moon Flow',
-      subtitle: 'Gentle stretches for evening calm.',
-      meta: '8-10 min',
-      accent: Color(0xFF8B6B4A),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final s = context.strings;
     return Scaffold(
       body: Stack(
         children: [
@@ -59,28 +20,37 @@ class MeditationPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Meditation',
-                    style: TextStyle(
+                  Text(
+                    s.meditation,
+                    style: const TextStyle(
                       color: Color(0xFF3D2B1F),
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   const SizedBox(height: 6),
-                  const Text(
-                    'Guided journeys for stillness and focus.',
-                    style: TextStyle(color: Color(0xFF8C7B6B), fontSize: 15),
+                  Text(
+                    s.meditationSubtitle,
+                    style: const TextStyle(
+                      color: Color(0xFF8C7B6B),
+                      fontSize: 15,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   _PranayamaSection(
-                    title: 'Pranayama Breaths',
+                    title: s.pranayamaBreaths,
                     items: PracticeData.pranayama,
                   ),
                   const SizedBox(height: 18),
-                  _Section(title: 'Dhyana Practices', items: _meditations),
+                  _PracticeSection(
+                    title: s.dhyanaPractices,
+                    items: PracticeData.meditation,
+                  ),
                   const SizedBox(height: 18),
-                  _Section(title: 'Yoga Foundations', items: _yoga),
+                  _PracticeSection(
+                    title: s.yogaFoundations,
+                    items: PracticeData.yoga,
+                  ),
                 ],
               ),
             ),
@@ -134,11 +104,11 @@ class _PranayamaSection extends StatelessWidget {
   }
 }
 
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.items});
+class _PracticeSection extends StatelessWidget {
+  const _PracticeSection({required this.title, required this.items});
 
   final String title;
-  final List<_LocalPracticeItem> items;
+  final List<PracticeItem> items;
 
   @override
   Widget build(BuildContext context) {
@@ -155,11 +125,21 @@ class _Section extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         ...items.map(
-          (item) => _PracticeCard(
-            title: item.title,
-            subtitle: item.subtitle,
-            meta: item.meta,
-            accent: item.accent,
+          (item) => GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PracticeDetailScreen(item: item),
+                ),
+              );
+            },
+            child: _PracticeCard(
+              title: item.title,
+              subtitle: item.subtitle,
+              meta: item.meta,
+              accent: item.accent,
+            ),
           ),
         ),
       ],
@@ -244,20 +224,6 @@ class _PracticeCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class _LocalPracticeItem {
-  const _LocalPracticeItem({
-    required this.title,
-    required this.subtitle,
-    required this.meta,
-    required this.accent,
-  });
-
-  final String title;
-  final String subtitle;
-  final String meta;
-  final Color accent;
 }
 
 class _SectionBackground extends StatelessWidget {

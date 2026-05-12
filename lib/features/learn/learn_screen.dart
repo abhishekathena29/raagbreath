@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:raag_breath/core/l10n/app_strings.dart';
 
 // ─── Main Learn Screen ────────────────────────────────────────────────────────
 
@@ -12,48 +13,51 @@ class LearnScreen extends StatefulWidget {
 
 class _LearnScreenState extends State<LearnScreen>
     with SingleTickerProviderStateMixin {
-  static const List<_ModuleInfo> _modules = [
-    _ModuleInfo(
-      index: 1,
-      title: 'Know Your Lungs',
-      subtitle: 'Anatomy & Function',
-      emoji: '🫁',
-      gradientColors: [Color(0xFF4FC3F7), Color(0xFF0288D1)],
-      accentColor: Color(0xFF0288D1),
-      tag: 'FOUNDATION',
-      durationMin: 8,
-    ),
-    _ModuleInfo(
-      index: 2,
-      title: 'What Harms Your Lungs',
-      subtitle: 'Pollution & Allergens',
-      emoji: '☁️',
-      gradientColors: [Color(0xFFFF7043), Color(0xFFBF360C)],
-      accentColor: Color(0xFFE64A19),
-      tag: 'AWARENESS',
-      durationMin: 7,
-    ),
-    _ModuleInfo(
-      index: 3,
-      title: 'Keep Your Lungs Healthy',
-      subtitle: 'Exercise & Diet',
-      emoji: '💪',
-      gradientColors: [Color(0xFF66BB6A), Color(0xFF2E7D32)],
-      accentColor: Color(0xFF388E3C),
-      tag: 'HEALTH',
-      durationMin: 10,
-    ),
-    _ModuleInfo(
-      index: 4,
-      title: 'Air Quality Awareness',
-      subtitle: 'AQI & Safety',
-      emoji: '🌍',
-      gradientColors: [Color(0xFFAB47BC), Color(0xFF6A1B9A)],
-      accentColor: Color(0xFF7B1FA2),
-      tag: 'ENVIRONMENT',
-      durationMin: 9,
-    ),
-  ];
+  List<_ModuleInfo> _buildModules(BuildContext context) {
+    final s = context.strings;
+    return [
+      _ModuleInfo(
+        index: 1,
+        title: s.moduleLungsTitle,
+        subtitle: s.moduleLungsSub,
+        emoji: '🫁',
+        gradientColors: const [Color(0xFF4FC3F7), Color(0xFF0288D1)],
+        accentColor: const Color(0xFF0288D1),
+        tag: s.tagFoundation,
+        durationMin: 8,
+      ),
+      _ModuleInfo(
+        index: 2,
+        title: s.moduleHarmTitle,
+        subtitle: s.moduleHarmSub,
+        emoji: '☁️',
+        gradientColors: const [Color(0xFFFF7043), Color(0xFFBF360C)],
+        accentColor: const Color(0xFFE64A19),
+        tag: s.tagAwareness,
+        durationMin: 7,
+      ),
+      _ModuleInfo(
+        index: 3,
+        title: s.moduleHealthyTitle,
+        subtitle: s.moduleHealthySub,
+        emoji: '💪',
+        gradientColors: const [Color(0xFF66BB6A), Color(0xFF2E7D32)],
+        accentColor: const Color(0xFF388E3C),
+        tag: s.tagHealth,
+        durationMin: 10,
+      ),
+      _ModuleInfo(
+        index: 4,
+        title: s.moduleAqiTitle,
+        subtitle: s.moduleAqiSub,
+        emoji: '🌍',
+        gradientColors: const [Color(0xFFAB47BC), Color(0xFF6A1B9A)],
+        accentColor: const Color(0xFF7B1FA2),
+        tag: s.tagEnvironment,
+        durationMin: 9,
+      ),
+    ];
+  }
 
   late AnimationController _staggerCtrl;
 
@@ -75,6 +79,7 @@ class _LearnScreenState extends State<LearnScreen>
 
   @override
   Widget build(BuildContext context) {
+    final modules = _buildModules(context);
     return Scaffold(
       backgroundColor: const Color(0xFFE8F4FB),
       body: Column(
@@ -101,14 +106,14 @@ class _LearnScreenState extends State<LearnScreen>
                   children: [
                     Row(
                       children: [
-                        SizedBox(width: 20),
-                        const Expanded(
+                        const SizedBox(width: 20),
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '📚  LEARN',
-                                style: TextStyle(
+                                context.strings.learnTag,
+                                style: const TextStyle(
                                   color: Colors.white70,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w700,
@@ -116,8 +121,8 @@ class _LearnScreenState extends State<LearnScreen>
                                 ),
                               ),
                               Text(
-                                'Lung Health Academy',
-                                style: TextStyle(
+                                context.strings.learnAcademyTitle,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
                                   fontWeight: FontWeight.w900,
@@ -144,11 +149,11 @@ class _LearnScreenState extends State<LearnScreen>
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
-                        children: _modules.map((m) {
+                        children: modules.map((m) {
                           return Expanded(
                             child: Container(
                               margin: EdgeInsets.only(
-                                right: m.index < _modules.length ? 6 : 0,
+                                right: m.index < modules.length ? 6 : 0,
                               ),
                               height: 4,
                               decoration: BoxDecoration(
@@ -169,7 +174,7 @@ class _LearnScreenState extends State<LearnScreen>
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
-              itemCount: _modules.length,
+              itemCount: modules.length,
               itemBuilder: (ctx, i) {
                 // Staggered interval: each card starts 150ms after the previous
                 final start = i * 0.15;
@@ -197,12 +202,12 @@ class _LearnScreenState extends State<LearnScreen>
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 18),
                       child: _ModuleCard(
-                        info: _modules[i],
+                        info: modules[i],
                         onTap: () => Navigator.push(
                           ctx,
                           MaterialPageRoute(
                             builder: (_) => ModuleDetailScreen(
-                              moduleIndex: _modules[i].index,
+                              moduleIndex: modules[i].index,
                             ),
                           ),
                         ),

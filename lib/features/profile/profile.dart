@@ -15,47 +15,53 @@ import 'package:raag_breath/core/theme/theme_provider.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
-  static const List<_PracticeItem> _todayPlan = [
-    _PracticeItem(
-      title: 'Morning Pranayama',
-      subtitle: 'Nadi Shodhana + Bhramari',
-      meta: '12 min',
-      accent: Color(0xFFC17D3C),
-    ),
-    _PracticeItem(
-      title: 'Raga Listening',
-      subtitle: 'Raag Bhairav with tanpura drone',
-      meta: '15 min',
-      accent: Color(0xFF4A7FA8),
-    ),
-    _PracticeItem(
-      title: 'Evening Yoga',
-      subtitle: 'Surya Namaskar + moon flow',
-      meta: '18 min',
-      accent: Color(0xFF7B5EA7),
-    ),
-  ];
+  static List<_PracticeItem> todayPlan(BuildContext context) {
+    final s = context.strings;
+    return [
+      _PracticeItem(
+        title: s.practiceMorningPranayama,
+        subtitle: s.practiceMorningPranayamaSub,
+        meta: '12 ${s.minutesShort}',
+        accent: const Color(0xFFC17D3C),
+      ),
+      _PracticeItem(
+        title: s.practiceRagaListening,
+        subtitle: s.practiceRagaListeningSub,
+        meta: '15 ${s.minutesShort}',
+        accent: const Color(0xFF4A7FA8),
+      ),
+      _PracticeItem(
+        title: s.practiceEveningYoga,
+        subtitle: s.practiceEveningYogaSub,
+        meta: '18 ${s.minutesShort}',
+        accent: const Color(0xFF7B5EA7),
+      ),
+    ];
+  }
 
-  static const List<_PracticeItem> _savedRoutines = [
-    _PracticeItem(
-      title: 'Breath Reset',
-      subtitle: 'Ujjayi + So-Ham meditation',
-      meta: '10 min',
-      accent: Color(0xFFC17D3C),
-    ),
-    _PracticeItem(
-      title: 'Riyaz Focus',
-      subtitle: 'Sa Re Ga warmup + Raag Yaman',
-      meta: '20 min',
-      accent: Color(0xFF8B6B4A),
-    ),
-    _PracticeItem(
-      title: 'Night Calm',
-      subtitle: 'Yoga Nidra + soft humming',
-      meta: '15 min',
-      accent: Color(0xFF5B8A6E),
-    ),
-  ];
+  static List<_PracticeItem> savedRoutines(BuildContext context) {
+    final s = context.strings;
+    return [
+      _PracticeItem(
+        title: s.practiceBreathReset,
+        subtitle: s.practiceBreathResetSub,
+        meta: '10 ${s.minutesShort}',
+        accent: const Color(0xFFC17D3C),
+      ),
+      _PracticeItem(
+        title: s.practiceRiyazFocus,
+        subtitle: s.practiceRiyazFocusSub,
+        meta: '20 ${s.minutesShort}',
+        accent: const Color(0xFF8B6B4A),
+      ),
+      _PracticeItem(
+        title: s.practiceNightCalm,
+        subtitle: s.practiceNightCalmSub,
+        meta: '15 ${s.minutesShort}',
+        accent: const Color(0xFF5B8A6E),
+      ),
+    ];
+  }
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -67,7 +73,12 @@ class _ProfilePageState extends State<ProfilePage> {
     return '${(minutes / 60).toStringAsFixed(1)}h';
   }
 
-  Widget _buildLungCapacityDashboard(UserModel user, Color accent) {
+  Widget _buildLungCapacityDashboard(
+    BuildContext context,
+    UserModel user,
+    Color accent,
+  ) {
+    final s = context.strings;
     final double capacity = LungCapacityCalculator.calculate(user);
     final String capacityStr = '${capacity}L';
     final double target = (capacity * 1.2);
@@ -102,9 +113,9 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Lung Capacity',
-                  style: TextStyle(
+                Text(
+                  s.lungCapacity,
+                  style: const TextStyle(
                     color: Color(0xFF3D2B1F),
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
@@ -124,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Icon(Icons.monitor_heart, size: 14, color: accent),
                       const SizedBox(width: 4),
                       Text(
-                        'Dynamic Score',
+                        s.dynamicScore,
                         style: TextStyle(
                           color: accent,
                           fontSize: 12,
@@ -165,11 +176,11 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildStat('Estimated', capacityStr, accent),
-                _buildStat('Goal', targetStr, const Color(0xFF8C7B6B)),
+                _buildStat(s.estimated, capacityStr, accent),
+                _buildStat(s.goal, targetStr, const Color(0xFF8C7B6B)),
                 _buildStat(
-                  'Streak',
-                  '${user.currentStreak} Days',
+                  s.streak,
+                  '${user.currentStreak} ${s.days}',
                   const Color(0xFF7B5EA7),
                 ),
               ],
@@ -181,13 +192,13 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildStat(
-                  'Total Practice',
+                  s.totalPractice,
                   _formatPracticeTime(user.totalPracticeMinutes),
                   const Color(0xFF8C7B6B),
                 ),
                 _buildStat(
-                  'Sessions',
-                  'View History >',
+                  s.sessions,
+                  s.viewHistory,
                   const Color(0xFFC17D3C),
                 ),
               ],
@@ -209,9 +220,9 @@ class _ProfilePageState extends State<ProfilePage> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Recent Activity",
-              style: TextStyle(
+            Text(
+              context.strings.recentActivity,
+              style: const TextStyle(
                 color: Color(0xFF3D2B1F),
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -338,10 +349,10 @@ class _ProfilePageState extends State<ProfilePage> {
               elevation: 0,
               iconTheme: const IconThemeData(color: Color(0xFF3D2B1F)),
             ),
-            body: const Center(
+            body: Center(
               child: Text(
-                "Loading Profile...",
-                style: TextStyle(color: Color(0xFF3D2B1F)),
+                context.strings.loadingProfile,
+                style: const TextStyle(color: Color(0xFF3D2B1F)),
               ),
             ),
           );
@@ -432,18 +443,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const SizedBox(height: 20),
                       _buildLungCapacityDashboard(
+                        context,
                         userModel,
                         const Color(0xFFC17D3C),
                       ),
                       const SizedBox(height: 32),
                       _Section(
                         title: context.strings.todaysSadhana,
-                        items: ProfilePage._todayPlan,
+                        items: ProfilePage.todayPlan(context),
                       ),
                       const SizedBox(height: 18),
                       _Section(
                         title: context.strings.savedRoutines,
-                        items: ProfilePage._savedRoutines,
+                        items: ProfilePage.savedRoutines(context),
                       ),
                       const SizedBox(height: 32),
                       _buildHistorySection(user.uid),
